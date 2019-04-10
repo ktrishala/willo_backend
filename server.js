@@ -11,6 +11,7 @@ app.use(cors());
 
 const login=require('./router/routes/login');
 const signup=require('./router/routes/signup');
+const home = require('./router/routes/home');
 const profile=require('./router/routes/profile');
 const addBeneficiary=require('./router/routes/addBeneficiary');
 const deleteBeneficiary=require('./router/routes/deleteBeneficiary');
@@ -25,6 +26,7 @@ const getBeneficiaryAssetMapping=require('./router/routes/getBeneficiaryAssetMap
 
 app.use('/api/login', login);
 app.use('/api/signup', signup);
+app.use('/api/home', home);
 app.use('/api/profile', profile);
 app.use('/api/addBeneficiary?:willid', addBeneficiary);
 app.use('/api/addItem?:willid', addItem);
