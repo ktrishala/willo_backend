@@ -22,6 +22,7 @@ const getBeneficiaryList=require('./router/routes/getBeneficiaryList');
 const items=require('./router/routes/items');
 const getBeneficiaryDetails=require('./router/routes/getBeneficiaryDetails');
 const getBeneficiaryAssetMapping=require('./router/routes/getBeneficiaryAssetMapping');
+const addExecutors=require('./router/routes/addExecutors');
 
 
 app.use('/api/login', login);
@@ -37,6 +38,8 @@ app.use('/api/getBeneficiaryDetails?:id', getBeneficiaryDetails);
 app.use('/api/Items?:id', items);
 app.use('/api/deleteItem?:belonging_name', deleteItem);
 app.use('/api/getBeneficiaryAssetMapping?:benid?:willid:itemid', deleteBeneficiary);
+app.use('/api/addExecutors?:willid', addExecutors);
+
 
 
 //start mysql connection

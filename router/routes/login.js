@@ -119,7 +119,7 @@ router.post('/', function (req, res) {
         else
         {
           var user_id = results[0].user_id;
-          db.query('select distinct(will_id) from parties where user_id = ?',[user_id] ,function (error, results, fields) {
+          db.query('select distinct(will_id) as will_id from parties where user_id = ?',[user_id] ,function (error, results, fields) {
            if (error) throw error;
            res.send({
           "code":200,
