@@ -33,6 +33,7 @@ router.post('/', function (req, res) {
   var state = req.body.state;
   var email  = req.body.email;
   var dob = req.body.dob;
+  console.log("Reached here for updating profile 1");
    db.query(query, [contact, dob, street_address, county, city, state, email], function (error, results, fields) {
 	  if (error) throw error;
     res.send({

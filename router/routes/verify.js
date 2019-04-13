@@ -56,28 +56,32 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
               "failed":"error ocurred"
             })
           }
+          db.query('SELECT * FROM will WHERE user_id = ? ', [user_id], function (error, results1, fields) {
+            if(results.length>0){
+              var template_id =1;
+              var will_status ='I';
+              var children ='N';
+              db.query('INSERT INTO will (template_id,will_status,children, user_id) VALUES(?,?,?,?)', [template_id, will_status, children, user_id], function (error, results1, fields) {
 
-          var template_id =1;
-          var will_status ='I';
-          var children ='N';
-          db.query('INSERT INTO will (template_id,will_status,children, user_id) VALUES(?,?,?,?)', [template_id, will_status, children, user_id], function (error, results1, fields) {
+              });
+              console.log("Inserting done");
+              db.query('select will_id from will where user_id=?',[user_id], function (error, results2, fields) {
 
+                console.log("The will id", results2[0].will_id);
+                var user_type='owner';
+                var will_id = results2[0].will_id;
+                var user_status ='A';
+                db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES(?,?,?,?)', [user_type, will_id, user_id, user_status], function (error, results1, fields) {
+                  res.send({
+                    "code":400,
+                    "result":true,
+                    "msg":"Verified Successfully"
+                  })
+                });
+              });
+            }
           });
-          console.log("Inserting done");
-          db.query('select will_id from will where user_id=?',[user_id], function (error, results2, fields) {
 
-            console.log("The will id", results2[0].will_id);
-            var user_type='owner';
-            var will_id = results2[0].will_id;
-            var user_status ='A';
-            db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES(?,?,?,?)', [user_type, will_id, user_id, user_status], function (error, results1, fields) {
-              res.send({
-                "code":400,
-                "result":true,
-                "msg":"Verified Successfully"
-              })
-            });
-          });
         });
         }
     else
