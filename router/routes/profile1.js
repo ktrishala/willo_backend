@@ -35,7 +35,11 @@ router.post('/', function (req, res) {
   var dob = req.body.dob;
    db.query(query, [contact, dob, street_address, county, city, state, email], function (error, results, fields) {
 	  if (error) throw error;
-	  res.end(JSON.stringify(results));
+    res.send({
+      "code":400,
+      "result":true,
+      "msg": "success"
+    })
 	});
 });
 
