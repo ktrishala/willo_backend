@@ -20,6 +20,9 @@ db.query('DELETE FROM parties WHERE user_id = ?', req.query.benid, function (err
       });
       db.query('select name FROM user WHERE user_id in (select user_id from parties where party_type="beneficia" and will_id)', req.query.willid, function (error, results, fields) {
             if (error) throw error;
+            var details = 'Deleted Beneficiary';
+            db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+            });
             res.send(JSON.stringify(results));
             });
 });

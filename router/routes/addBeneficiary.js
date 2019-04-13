@@ -43,12 +43,15 @@ console.log("checking the will id", req.query.willid);
 
    if (error) throw error;
    var resm = results[0].user_id;
-   var name = "beneficia";
+   var name = "beneficiary";
    var status = null;
 
    db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
    if (error) throw error;
    res.end(JSON.stringify(results));
+   var details = 'Added Beneficiary ' + req.body.name ;
+   db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+   });
 });
 });
 });

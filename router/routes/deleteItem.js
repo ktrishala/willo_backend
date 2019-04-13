@@ -14,6 +14,9 @@ router.post('/', function (req, res) {
 
  db.query('DELETE from beneficiary_belongings where belongings_id in(SELECT belongings_id from belongings where belonging_name=?)', [req.body.belonging_name], function (error, results, fields) {
        if (error) throw error;
+       var details = 'Deleted belongings ' + req.body.belonging_name;
+       db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+       });
        res.send({
          "code":400,
          "result":true

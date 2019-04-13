@@ -13,11 +13,9 @@ var mailTransporter = nodemailer.createTransport({
  service: 'gmail',
  auth: {
         user: 'willojb2@gmail.com',
-        pass: 'youmayenter'
+        pass: 'tcawfdwqdwodavrh'
     }
 });
-
-
 router.post('/', function (req, res) {
    var postData  = req.body;
    var email = req.body.email;
@@ -41,14 +39,9 @@ router.post('/', function (req, res) {
      else{
         db.query('INSERT INTO user (password, name, contact, email, token_id) VALUES(?,?,?,?,?)', [req.body.password, req.body.name,req.body.contact,email, token_id], function (error, results, fields) {
     	  if (error) throw error;
-        console.log(results);
-    	  res.send({
-          "code":400,
-          "results":true
-        });
     	});
-
-      link="http://"+req.get('host')+"/verify?id="+token_id;
+      //req.get('host')
+      link="http://"+"localhost:8100" +"/verify?id="+token_id;
       var mailOptions = {
         from: 'willo@gmail.com', // sender address
         to: email, // list of receivers
@@ -59,17 +52,14 @@ router.post('/', function (req, res) {
          if(err)
            console.log(err)
          else
-           console.log(info);
+         res.send({
+           "code":400,
+           "results":true,
+           "msg":"verification mail sent"
+         });
       });
      }
     });
-   //connection.query('INSERT INTO user SET ?', postData, token_id, function (error, results, fields) {
-
-
- //  connection.query('INSERT INTO will (will_status,create_dt,last_update_dt) VALUES("Incomplete",CURRENT_DATE,CURRENT_DATE)', function (error, results, fields) {
- //   if (error) throw error;
- //   res.end(JSON.stringify(results));
- // });
 });
 
 

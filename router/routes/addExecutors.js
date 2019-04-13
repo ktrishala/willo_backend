@@ -44,6 +44,9 @@ console.log("checking the will id", req.query.willid);
          "results": false
        })
    else
+       var details = 'Added Executor ' + req.body.name ;
+       db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+       });
        res.send({
          "code":400,
          "result":true

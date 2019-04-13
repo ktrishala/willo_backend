@@ -14,10 +14,16 @@ router.post('/', function (req, res) {
 console.log("Reached add item");
  db.query('INSERT INTO belongings (belonging_name, belongings_desc) VALUES(?, ?)', [req.body.belonging_name, req.body.belongings_desc], function (error, results, fields) {
        if (error) throw error;
-       res.send({
-         "code":400,
-         "result":true
-       })
+       else{
+         var details = 'Added Item ' + req.body.belonging_name ;
+         db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+         });
+         res.send({
+           "code":400,
+           "result":true
+         })
+       }
+
      });
  console.log("Inserting done");
 

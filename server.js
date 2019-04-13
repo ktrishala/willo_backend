@@ -11,8 +11,10 @@ app.use(cors());
 
 const login=require('./router/routes/login');
 const signup=require('./router/routes/signup');
+const verify=require('./router/routes/verify');
 const home = require('./router/routes/home');
-const profile=require('./router/routes/profile');
+const profile1=require('./router/routes/profile1');
+const profile2=require('./router/routes/profile2');
 const addBeneficiary=require('./router/routes/addBeneficiary');
 const deleteBeneficiary=require('./router/routes/deleteBeneficiary');
 const addItem=require('./router/routes/addItem');
@@ -27,8 +29,10 @@ const addExecutors=require('./router/routes/addExecutors');
 
 app.use('/api/login', login);
 app.use('/api/signup', signup);
+app.use('/verify?:id', verify);
 app.use('/api/home', home);
-app.use('/api/profile', profile);
+app.use('/api/profile1', profile1);
+app.use('/api/profile2', profile2);
 app.use('/api/addBeneficiary?:willid', addBeneficiary);
 app.use('/api/addItem?:willid', addItem);
 app.use('/api/witness?:id', witness);
