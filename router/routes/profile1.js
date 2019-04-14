@@ -28,6 +28,8 @@ router.post('/', function (req, res) {
   var state = req.body.state;
   var dob = req.body.dob;
   console.log("Reached here for updating profile 1");
+  console.log(req.body.street_address);
+  console.log(req.body.city);
   db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [will_id], function (error, results, fields) {
    if (error) throw error;
    if(results.length>0){

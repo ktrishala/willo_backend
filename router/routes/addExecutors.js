@@ -9,14 +9,6 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-var mailTransporter = nodemailer.createTransport({
- service: 'gmail',
- auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'youmayenter'
-    }
-});
-
 router.post('/', function (req, res) {
   //var postData  = req.body;
  var email = req.body.email;
@@ -26,32 +18,65 @@ router.post('/', function (req, res) {
  var contact = req.body.contact;
 console.log("checking the will id", req.query.willid);
 
- db.query('INSERT INTO user (name, email, dob, relationship, contact) VALUES(?,?,?,?,?)', [name, email, dob, relationship, contact], function (error, results, fields) {
-       if (error) throw error;
-     });
- console.log("Inserting done");
- db.query('SELECT user_id FROM user WHERE email = ?', [email], function (error, results, fields) {
+db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary executor", "secondary executor")', [req.query.willid], function (error, results, fields) {
+  if(results.length<2){
+    db.query('INSERT INTO user (name, email, dob, relationship, contact) VALUES(?,?,?,?,?)', [name, email, dob, relationship, contact], function (error, results, fields) {
+          if (error) throw error;
+        });
+    console.log("Inserting done");
+    db.query('SELECT user_id FROM user WHERE email = ?', [email], function (error, results, fields) {
 
-   if (error) throw error;
-   var resm = results[0].user_id;
-   var name = "executor";
-   var status = null;
+      if (error) throw error;
+      var resm = results[0].user_id;
 
-   db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
-   if (error)
-       res.send({
-         "code":400,
-         "results": false
-       })
-   else
-       var details = 'Added Executor ' + req.body.name ;
-       db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
-       });
-       res.send({
-         "code":400,
-         "result":true
-       });
-});
+      db.query('SELECT * FROM parties WHERE will_id = ? and party_type="primary executor"', [req.query.willid], function (error, results, fields) {
+        if(results.length==0){
+          var name = "primary executor";
+          var status = null;
+          db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
+          if (error) throw error;
+          else{
+            var details = 'Added Executor ' + req.body.name ;
+            db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+            });
+            res.send({
+              "code":400,
+              "result":true
+            });
+          }
+         });
+        }
+        else{
+          var name = "secondary executor";
+          var status = null;
+          db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
+          if (error) throw error;
+          else
+              var details = 'Added Executor ' + req.body.name ;
+              db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+              });
+              res.send({
+                "code":400,
+                "result":true
+              });
+           });
+        }
+
+
+
+      });
+
+
+
+   });
+  }
+  else{
+    res.send({
+      "code":400,
+      "result":false,
+      "msg":"Two Executors Already Added"
+    });
+  }
 });
 });
 
