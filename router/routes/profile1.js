@@ -18,7 +18,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // 	});
 // });
 
-var query = 'UPDATE user SET contact=?, dob = ?, street_address = ?, county = ? , city = ?, state = ?  WHERE  user_id = ?';
+var query = 'UPDATE user SET contact=?, dob = ?, street_address = ?, county = ? , city = ?, state = ?, gender=?, own_property=?  WHERE  user_id = ?';
 router.post('/', function (req, res) {
   var will_id = req.query.willid;
   var contact = req.body.contact;
@@ -27,14 +27,17 @@ router.post('/', function (req, res) {
   var city = req.body.city;
   var state = req.body.state;
   var dob = req.body.dob;
+  var gender = req.body.gender;
+  var own_property = req.body.own_property;
   console.log("Reached here for updating profile 1");
-  console.log(req.body.street_address);
-  console.log(req.body.city);
+  console.log(req.body.gender);
+  console.log(req.body.own_property);
+
   db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [will_id], function (error, results, fields) {
    if (error) throw error;
    if(results.length>0){
      var user_id = results[0].user_id;
-     db.query(query, [contact, dob, street_address, county, city, state, user_id], function (error, results, fields) {
+     db.query(query, [contact, dob, street_address, county, city, state, gender, own_property, user_id], function (error, results, fields) {
   	  if (error) throw error;
       res.send({
         "code":400,
