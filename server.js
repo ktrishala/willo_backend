@@ -19,12 +19,14 @@ const addBeneficiary=require('./router/routes/addBeneficiary');
 const deleteBeneficiary=require('./router/routes/deleteBeneficiary');
 const addItem=require('./router/routes/addItem');
 const deleteItem=require('./router/routes/deleteItem');
-const witness=require('./router/routes/witness');
+const addWitness=require('./router/routes/addWitness');
 const getBeneficiaryList=require('./router/routes/getBeneficiaryList');
 const items=require('./router/routes/items');
 const getBeneficiaryDetails=require('./router/routes/getBeneficiaryDetails');
 const getBeneficiaryAssetMapping=require('./router/routes/getBeneficiaryAssetMapping');
 const addExecutors=require('./router/routes/addExecutors');
+const getWitness=require('./router/routes/getWitness');
+const getExecutors=require('./router/routes/getExecutors');
 
 
 app.use('/api/login', login);
@@ -35,14 +37,16 @@ app.use('/api/profile1?:willid', profile1);
 app.use('/api/profile2?:willid', profile2);
 app.use('/api/addBeneficiary?:willid', addBeneficiary);
 app.use('/api/addItem?:willid', addItem);
-app.use('/api/witness?:id', witness);
+app.use('/api/addWitness?:willid', addWitness);
 app.use('/api/deleteBeneficiary?:benid?:willid', deleteBeneficiary);
-app.use('/api/getBeneficiaryList?:id', getBeneficiaryList);
+app.use('/api/getBeneficiaryList?:willid', getBeneficiaryList);
 app.use('/api/getBeneficiaryDetails?:id', getBeneficiaryDetails);
 app.use('/api/Items?:id', items);
 app.use('/api/deleteItem?:belonging_name', deleteItem);
 app.use('/api/getBeneficiaryAssetMapping?:benid?:willid:itemid', deleteBeneficiary);
 app.use('/api/addExecutors?:willid', addExecutors);
+app.use('/api/getWitness?:willid', getWitness);
+app.use('/api/getExecutors?:willid', getExecutors);
 
 
 
