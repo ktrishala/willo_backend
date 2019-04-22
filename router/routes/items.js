@@ -13,7 +13,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here item;")
    console.log(req.query.willid);
-   db.query('select belonging_name from belongings where will_id =?', [req.query.willid], function (error, results, fields) {
+   db.query('select belongings_id, belonging_name from belongings where will_id =?', [req.query.willid], function (error, results, fields) {
 	  if (error) throw error;
 	  res.end(JSON.stringify(results));
 	});
