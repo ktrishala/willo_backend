@@ -11,12 +11,12 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 router.get('/', function (req, res) {
-  console.log("Reached here item;")
+  console.log("Reached here item;");
    console.log(req.query.willid);
-   db.query('select belongings_id, belonging_name from belongings where will_id =?', [req.query.willid], function (error, results, fields) {
-	  if (error) throw error;
-	  res.end(JSON.stringify(results));
-	});
+   db.query('SELECT belongings_id, belongings_name, belongings_category from belongings where belongings_id in (select belongings_id from beneficiary_belongings where will_id =?)', [req.query.willid], function (error, results, fields) {
+  	  if (error) throw error;
+  	  res.end(JSON.stringify(results));
+   });
 });
 
 module.exports = router;
