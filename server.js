@@ -27,6 +27,8 @@ const getBeneficiaryAssetMapping=require('./router/routes/getBeneficiaryAssetMap
 const addExecutors=require('./router/routes/addExecutors');
 const getWitness=require('./router/routes/getWitness');
 const getExecutors=require('./router/routes/getExecutors');
+const mapBeneficiarytoItem=require('./router/routes/mapBeneficiarytoItem');
+
 
 
 app.use('/api/login', login);
@@ -41,14 +43,14 @@ app.use('/api/addWitness?:willid', addWitness);
 app.use('/api/deleteBeneficiary?:benid?:willid', deleteBeneficiary);
 app.use('/api/getBeneficiaryList?:willid', getBeneficiaryList);
 app.use('/api/getBeneficiaryDetails?:id', getBeneficiaryDetails);
-app.use('/api/Items?:id', items);
+app.use('/api/Items?:willid', items);
 app.use('/api/deleteItem?:belonging_name', deleteItem);
 //app.use('/api/getBeneficiaryAssetMapping?:benid?:willid:itemid', deleteBeneficiary);
 app.use('/api/getBeneficiaryAssetMapping?:willid', getBeneficiaryAssetMapping);
 app.use('/api/addExecutors?:willid', addExecutors);
 app.use('/api/getWitness?:willid', getWitness);
 app.use('/api/getExecutors?:willid', getExecutors);
-
+app.use('/api/mapBeneficiarytoItem?:willid', mapBeneficiarytoItem);
 
 
 //start mysql connection

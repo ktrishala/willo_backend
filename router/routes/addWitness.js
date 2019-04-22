@@ -30,7 +30,7 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary wi
       var resm = results[0].user_id;
 
       db.query('SELECT * FROM parties WHERE will_id = ? and party_type="primary witness"', [req.query.willid], function (error, results, fields) {
-        if(results.length==0){
+        if(req.body.witnessid==1){
           var name = "primary witness";
           var status = null;
           db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
