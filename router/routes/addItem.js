@@ -16,6 +16,7 @@ console.log("Reached add item");
        if (error) throw error;
        else{
          db.query('SELECT belongings_id from belongings where belongings_name=?', [req.body.belongings_name], function (error, results, fields) {
+          console.log(results[0].belongings_id);
            db.query('INSERT INTO beneficiary_belongings (belongings_id, will_id) VALUES(?, ?)', [results[0].belongings_id, req.query.willid], function (error, results, fields) {
          });
        });
