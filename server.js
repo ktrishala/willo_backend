@@ -28,7 +28,13 @@ const addExecutors=require('./router/routes/addExecutors');
 const getWitness=require('./router/routes/getWitness');
 const getExecutors=require('./router/routes/getExecutors');
 const mapBeneficiarytoItem=require('./router/routes/mapBeneficiarytoItem');
-
+const editBeneficiarytoItem=require('./router/routes/editBeneficiarytoItem');
+const editWitness=require('./router/routes/editWitness');
+const deleteWitness=require('./router/routes/deleteWitness');
+const addGuardian=require('./router/routes/addGuardian');
+const editGuardian=require('./router/routes/editGuardian');
+const getGuardian=require('./router/routes/getGuardian');
+const deleteGuardian=require('./router/routes/deleteGuardian');
 
 
 app.use('/api/login', login);
@@ -51,6 +57,13 @@ app.use('/api/addExecutors?:willid', addExecutors);
 app.use('/api/getWitness?:willid', getWitness);
 app.use('/api/getExecutors?:willid', getExecutors);
 app.use('/api/mapBeneficiarytoItem?:willid', mapBeneficiarytoItem);
+app.use('/api/editBeneficiarytoItem?:willid', editBeneficiarytoItem);
+app.use('/api/editWitness?:willid', editWitness);
+app.use('/api/deleteWitness?:willid', deleteWitness);
+app.use('/api/addGuardian?:willid', addGuardian);
+app.use('/api/editGuardian?:willid', editGuardian);
+app.use('/api/getGuardian?:willid', getGuardian);
+app.use('/api/deleteGuardian?:willid', deleteGuardian);
 
 
 //start mysql connection

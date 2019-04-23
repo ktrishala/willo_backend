@@ -16,8 +16,8 @@ router.post('/', function (req, res) {
  var contact = req.body.contact;
 console.log("checking the will id", req.query.willid);
 
-db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary witness", "secondary witness", "tertiary witness")', [req.query.willid], function (error, results, fields) {
-  if(results.length<3){
+db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary guardian", "secondary guardian")', [req.query.willid], function (error, results, fields) {
+  if(results.length<2){
     db.query('INSERT INTO user (name, email, contact) VALUES(?,?,?)', [name, email, contact], function (error, results, fields) {
           if (error) throw error;
         });
@@ -27,14 +27,14 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary wi
       if (error) throw error;
       var resm = results[0].user_id;
 
-      db.query('SELECT * FROM parties WHERE will_id = ? and party_type="primary witness"', [req.query.willid], function (error, results, fields) {
-        if(req.body.witnessid==1){
-          var name = "primary witness";
+      db.query('SELECT * FROM parties WHERE will_id = ? and party_type="primary guardian"', [req.query.willid], function (error, results, fields) {
+        if(req.body.guardianid==1){
+          var name = "primary guardian";
           var status = null;
           db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
           if (error) throw error;
           else{
-            var details = 'Added witness ' + req.body.name ;
+            var details = 'Added guardian ' + req.body.name ;
             db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
             });
             res.send({
@@ -44,28 +44,13 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary wi
           }
          });
         }
-        else if(req.body.witnessid==2){
-          var name = "secondary witness";
+        else if(req.body.guardianid==2){
+          var name = "secondary guardian";
           var status = null;
           db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
           if (error) throw error;
           else
-              var details = 'Added secondary witness ' + req.body.name ;
-              db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
-              });
-              res.send({
-                "code":400,
-                "result":true
-              });
-           });
-        }
-        else if(req.body.witnessid==3){
-          var name = "tertiary witness";
-          var status = null;
-          db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
-          if (error) throw error;
-          else
-              var details = 'Added tertiary witness ' + req.body.name ;
+              var details = 'Added secondary guardian ' + req.body.name ;
               db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
               });
               res.send({
@@ -81,7 +66,7 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary wi
     res.send({
       "code":400,
       "result":false,
-      "msg":"Three Witnesses Already Added"
+      "msg":"Two guardianes Already Added"
     });
   }
 });
