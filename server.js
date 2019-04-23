@@ -35,6 +35,7 @@ const addGuardian=require('./router/routes/addGuardian');
 const editGuardian=require('./router/routes/editGuardian');
 const getGuardian=require('./router/routes/getGuardian');
 const deleteGuardian=require('./router/routes/deleteGuardian');
+const getBeneficiaryAsset=require('./router/routes/getBeneficiaryAsset');
 
 
 app.use('/api/login', login);
@@ -51,7 +52,6 @@ app.use('/api/getBeneficiaryList?:willid', getBeneficiaryList);
 app.use('/api/getBeneficiaryDetails?:id', getBeneficiaryDetails);
 app.use('/api/Items?:willid', items);
 app.use('/api/deleteItem?:belonging_name', deleteItem);
-//app.use('/api/getBeneficiaryAssetMapping?:benid?:willid:itemid', deleteBeneficiary);
 app.use('/api/getBeneficiaryAssetMapping?:willid', getBeneficiaryAssetMapping);
 app.use('/api/addExecutors?:willid', addExecutors);
 app.use('/api/getWitness?:willid', getWitness);
@@ -64,6 +64,8 @@ app.use('/api/addGuardian?:willid', addGuardian);
 app.use('/api/editGuardian?:willid', editGuardian);
 app.use('/api/getGuardian?:willid', getGuardian);
 app.use('/api/deleteGuardian?:willid', deleteGuardian);
+app.use('/api/getBeneficiaryAsset?:benid?:willid', getBeneficiaryAsset);
+
 
 
 //start mysql connection
