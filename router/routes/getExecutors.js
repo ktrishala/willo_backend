@@ -9,9 +9,9 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 router.get('/', function (req, res) {
-  console.log("Reached here executors details;")
+  console.log("Reached here executors details;");
    console.log(req.query.willid);
-   db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary witness", "secondary witness")', [req.query.willid], function (error, results, fields) {
+   db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary executor", "secondary executor")', [req.query.willid], function (error, results, fields) {
      if(results.length==0){
        res.send({
          "code":400,
