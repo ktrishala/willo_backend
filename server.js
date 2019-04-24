@@ -38,6 +38,8 @@ const deleteGuardian=require('./router/routes/deleteGuardian');
 const getBeneficiaryAsset=require('./router/routes/getBeneficiaryAsset');
 const addcustomerfeedback=require('./router/routes/addcustomerfeedback');
 const getcustomerfeedback=require('./router/routes/getcustomerfeedback');
+const editExecutors=require('./router/routes/editExecutors');
+
 
 app.use('/api/login', login);
 app.use('/api/signup', signup);
@@ -68,7 +70,7 @@ app.use('/api/deleteGuardian?:willid', deleteGuardian);
 app.use('/api/getBeneficiaryAsset?:benid?:willid', getBeneficiaryAsset);
 app.use('/api/addcustomerfeedback?:willid', addcustomerfeedback);
 app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
-
+app.use('/api/editExecutors?:willid', editExecutors);
 
 //start mysql connection
 // var connection = mysql.createConnection({

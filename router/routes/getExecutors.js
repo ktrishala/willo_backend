@@ -20,13 +20,13 @@ router.get('/', function (req, res) {
        });
      }
      else if(results.length==1){
-       db.query('SELECT name, email, dob, relationship, contact from user where user_id=? ', [results[0].user_id], function (error, results, fields) {
+       db.query('SELECT user_id, name, email, dob, relationship, contact from user where user_id=? ', [results[0].user_id], function (error, results, fields) {
              if (error) throw error;
               res.send(JSON.stringify(results));
            });
      }
      else if(results.length==2){
-       db.query('SELECT name, email, dob, relationship, contact from user where user_id in(?,?)', [results[0].user_id, results[1].user_id], function (error, results, fields) {
+       db.query('SELECT user_id name, email, dob, relationship, contact from user where user_id in(?,?)', [results[0].user_id, results[1].user_id], function (error, results, fields) {
              if (error) throw error;
              res.send(JSON.stringify(results));
            });
