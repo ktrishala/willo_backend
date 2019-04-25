@@ -17,10 +17,10 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.post('/', function (req, res) {
   console.log("Reached profile 2");
   //var marital_status = req.body.marital_status;
-  for(var key in req.nameofchild.hasOwnProperty(key)){
+  for(var key in req.body.nameofchild.hasOwnProperty(key)){
 
-    console.log(req.nameofchild[key].name);
-    var child_name= req.nameofchild[key].name;
+    console.log(req.body.nameofchild[key].name);
+    var child_name= req.body.nameofchild[key].name;
     db.query('INSERT INTO children (will_id, children_name) VALUES(?, ?)', [req.query.willid, child_name], function (error, results, fields) {
     });
   }
