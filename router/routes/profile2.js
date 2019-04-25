@@ -15,9 +15,14 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 //var query = 'UPDATE user SET marital_status = ?, children = ?  WHERE  email = ?';
 router.post('/', function (req, res) {
+  console.log("Reached profile 2");
   //var marital_status = req.body.marital_status;
   for(var key in req.nameofchild.hasOwnProperty(key)){
-    console.log(req.nameofchild[key].name)
+
+    console.log(req.nameofchild[key].name);
+    var child_name= req.nameofchild[key].name;
+    db.query('INSERT INTO children (will_id, children_name, children_dob) VALUES(?, ?, ?)', [will_id, child_name], function (error, results, fields) {
+    });
   }
   // var children = req.body.children;
   // var email  = req.body.email;
