@@ -18,14 +18,31 @@ router.post('/', function (req, res) {
   console.log("Reached profile 2");
   console.log(req.body.nameofchild.length);
   console.log(req.body.nameofchild);
-  var key=0;
-  for(key in req.body.nameofchild){
-    console.log(key);
-    console.log(req.body.nameofchild[key].name);
-    var child_name= req.body.nameofchild[key].name;
-    db.query('INSERT INTO children (will_id, children_name) VALUES(?, ?)', [req.query.willid, child_name], function (error, results, fields) {
+  if(req.body.nameofchild.length>0){
+    var key=0;
+    db.query('UPDATE will SET children ="Y" where will_id=?', [req.query.willid], function (error, results, fields) {
+    });
+    db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [req.query.willid], function (error, results, fields) {
+      db.query('UPDATE user SET children ="Y" where user_id=?', [results[0].user_id], function (error, results, fields) {
+      });
+    });
+    for(key in req.body.nameofchild){
+      console.log(key);
+      console.log(req.body.nameofchild[key].name);
+      var child_name= req.body.nameofchild[key].name;
+      db.query('INSERT INTO children (will_id, children_name) VALUES(?, ?)', [req.query.willid, child_name], function (error, results, fields) {
+      });
+    }
+  }
+  else{
+    db.query('UPDATE will SET children ="N" where will_id=?', [req.query.willid], function (error, results, fields) {
+    });
+    db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [req.query.willid], function (error, results, fields) {
+      db.query('UPDATE user SET children ="N" where user_id=?', [results[0].user_id], function (error, results, fields) {
+      });
     });
   }
+  });
   // var children = req.body.children;
   // var email  = req.body.email;
   //  db.query(query, [marital_status, children, email], function (error, results, fields) {
@@ -49,7 +66,7 @@ router.post('/', function (req, res) {
   //     });
   //   }
 	// });
-});
+
 
 
 
