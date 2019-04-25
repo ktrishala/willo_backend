@@ -41,6 +41,21 @@ const getcustomerfeedback=require('./router/routes/getcustomerfeedback');
 const editExecutors=require('./router/routes/editExecutors');
 
 
+//**************Admin Portal*****************//
+//Getting our POSTS routes
+const posts=require('./router/routes/posts');
+const stats=require('./router/routes/stats');
+const useraccounts=require('./router/routes/useraccounts');
+const useraccounts1=require('./router/routes/useraccounts1');
+const customerfb = require('./router/routes/customerfb');
+const fpwd = require('./router/routes/fpwd');
+const customermail=require('./router/routes/customermail');
+const addadmin = require('./router/routes/addadmin');
+const financial = require('./router/routes/financial');
+const piedetails = require('./router/routes/piedetails');
+const submodel = require('./router/routes/submodel');
+//**********************************************//
+
 app.use('/api/login', login);
 app.use('/api/signup', signup);
 app.use('/verify?:id', verify);
@@ -71,6 +86,20 @@ app.use('/api/getBeneficiaryAsset?:benid?:willid', getBeneficiaryAsset);
 app.use('/api/addcustomerfeedback?:willid', addcustomerfeedback);
 app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
 app.use('/api/editExecutors?:willid', editExecutors);
+
+//*************Admin Portal***********************//
+app.use('/api/auth', posts);
+app.use('/api/stats', stats);
+app.use('/api/useraccount', useraccounts);
+app.use('/api/useraccount1', useraccounts1);
+app.use('/api/customerfb', customerfb);
+app.use('/api/fpwd', fpwd);
+app.use('/api/customermail', customermail);
+app.use('/api/addadmin', addadmin);
+app.use('/api/financial', financial);
+app.use('/api/piedetails', piedetails);
+app.use('/api/submodel', submodel);
+//**********************************************//
 
 //start mysql connection
 // var connection = mysql.createConnection({
