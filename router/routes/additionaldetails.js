@@ -16,7 +16,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 //var query = 'UPDATE user SET marital_status = ?, children = ?  WHERE  email = ?';
 router.post('/', function (req, res) {
   console.log("Reached profile 2");
-  //var marital_status = req.body.marital_status;
+  console.log(req.body.nameofchild);
   for(var key in req.body.nameofchild.hasOwnProperty(key)){
     console.log(key);
     console.log(req.body.nameofchild[key].name);
