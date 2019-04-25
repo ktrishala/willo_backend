@@ -21,7 +21,7 @@ router.post('/', function (req, res) {
 
     console.log(req.nameofchild[key].name);
     var child_name= req.nameofchild[key].name;
-    db.query('INSERT INTO children (will_id, children_name, children_dob) VALUES(?, ?, ?)', [will_id, child_name], function (error, results, fields) {
+    db.query('INSERT INTO children (will_id, children_name) VALUES(?, ?)', [req.query.willid, child_name], function (error, results, fields) {
     });
   }
   // var children = req.body.children;
