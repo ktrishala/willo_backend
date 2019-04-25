@@ -17,7 +17,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.post('/', function (req, res) {
   console.log("Reached profile 2");
   console.log(req.body.nameofchild);
-  for(var key in req.body.nameofchild.hasOwnProperty(key)){
+  var key=0;
+  for(key in req.body.nameofchild){
     console.log(key);
     console.log(req.body.nameofchild[key].name);
     var child_name= req.body.nameofchild[key].name;
