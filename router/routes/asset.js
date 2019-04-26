@@ -8,14 +8,14 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-router.post('/', function (req, res) {
-  console.log("Reached useraccounts1 in server");
-   db.query('select a.* , b.party_type, b.will_id from user a inner join parties b on a.user_id=b.user_id and b.will_id \
-   	in (select will_id from parties where party_type= \'owner\' and user_id=?)',[req.body.user_id], function (error, results, fields) {
+router.get('/', function (req, res) {
+   console.log("The will id is:"+req.query.will_id);
+   db.query('SELECT a.* , b.will_id from belongings a inner join beneficiary_belongings b on a.belongings_id=b.belongings_id and b.will_id=?',
+   	[req.query.will_id], function (error, results, fields) {
     if (error) throw error;
     console.log(JSON.stringify(results));
     res.send(JSON.stringify(results));
-  });
+	});
 });
 
 module.exports = router;
