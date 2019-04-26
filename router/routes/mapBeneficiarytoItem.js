@@ -14,6 +14,8 @@ router.post('/', function (req, res) {
 console.log("Reached map item to beneficiary");
 console.log(req.query.willid);
 console.log(req.body.belongings_id);
+console.log(req.body.pct_allocation);
+console.log(req.body.user_id);
 db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, req.body.belongings_id], function (error, results, fields) {
     if (error) throw error;
     else if(results[0].sum_pct_allocation===100){
