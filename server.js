@@ -39,6 +39,7 @@ const getBeneficiaryAsset=require('./router/routes/getBeneficiaryAsset');
 const addcustomerfeedback=require('./router/routes/addcustomerfeedback');
 const getcustomerfeedback=require('./router/routes/getcustomerfeedback');
 const editExecutors=require('./router/routes/editExecutors');
+const mailWitness=require('./router/routes/mailWitness');
 
 
 //**************Admin Portal*****************//
@@ -86,6 +87,8 @@ app.use('/api/getBeneficiaryAsset?:benid?:willid', getBeneficiaryAsset);
 app.use('/api/addcustomerfeedback?:willid', addcustomerfeedback);
 app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
 app.use('/api/editExecutors?:willid', editExecutors);
+app.use('/api/mailWitness?:willid', mailWitness);
+
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
