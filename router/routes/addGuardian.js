@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
 console.log("checking the will id", req.query.willid);
 
 db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary guardian", "secondary guardian")', [req.query.willid], function (error, results, fields) {
-  if(results.length<2){
+  if(results.length<3){
     db.query('INSERT INTO user (name, email, contact) VALUES(?,?,?)', [name, email, contact], function (error, results, fields) {
           if (error) throw error;
         });
@@ -59,6 +59,22 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary gu
               });
            });
         }
+        else if(req.body.guardianid==3){
+          var name = "tertiary guardian";
+          var status = null;
+          db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES (?,?,?,?)',[name, req.query.willid, resm, status], function (error, results, fields) {
+          if (error) throw error;
+          else
+              var details = 'Added tertiary guardian ' + req.body.name ;
+              db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+              });
+              res.send({
+                "code":400,
+                "result":true
+              });
+           });
+        }
+
       });
    });
   }
@@ -66,7 +82,7 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary gu
     res.send({
       "code":400,
       "result":false,
-      "msg":"Two guardianes Already Added"
+      "msg":"Three guardians Already Added"
     });
   }
 });

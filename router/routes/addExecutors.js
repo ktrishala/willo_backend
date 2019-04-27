@@ -61,13 +61,7 @@ db.query('SELECT * FROM parties WHERE will_id = ? and party_type in ("primary ex
               });
            });
         }
-
-
-
       });
-
-
-
    });
   }
   else{
