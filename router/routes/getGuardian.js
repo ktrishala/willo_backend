@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here list guardian;");
    console.log(req.query.willid);
-   db.query('select a.user_id as user_id, a.name as name, a.email as email, a.contact as contact,b.party_type as party_type from user a inner join parties b on a.user_id=b.user_id and will_id=? and party_type in("primary guardian","secondary guardian")', [req.query.willid], function (error, results, fields) {
+   db.query('select a.user_id as user_id, a.name as name, a.email as email, a.contact as contact,b.party_type as party_type from user a inner join parties b on a.user_id=b.user_id and will_id=? and party_type in("primary guardian","secondary guardian","tertiary guardian")', [req.query.willid], function (error, results, fields) {
 	  if (error) throw error;
 
       res.end(JSON.stringify(results));
