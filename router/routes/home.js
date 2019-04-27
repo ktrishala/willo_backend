@@ -27,8 +27,8 @@ router.get('/', function (req, res) {
          "executor_count":0,
          "guardian_count":0,
          "belongings_count":0,
-         "log_details": results3[0].log_details,
-         "last_updated_dt": results3[0].last_updated_dt
+         "log_details": null,
+         "last_updated_dt": null
        });
      }
      else if(results2.length==0){
