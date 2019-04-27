@@ -18,6 +18,8 @@ router.get('/', function (req, res) {
 	 db.query(query2, [req.query.willid], function (error, results2, fields) {
 	 db.query(query3, [req.query.willid], function (error, results3, fields) {
      if(results1.length==0){
+       console.log("Reached 1");
+       console.log(results1[0].guardian_count);
        res.send({
          "code":400,
          "result":true,
@@ -32,6 +34,8 @@ router.get('/', function (req, res) {
        });
      }
      else if(results2.length==0){
+       console.log("Reached 2");
+       console.log(results1[0].guardian_count);
        res.send({
          "code":400,
          "result":true,
@@ -46,6 +50,8 @@ router.get('/', function (req, res) {
        });
      }
      else{
+       console.log("Reached 3");
+       console.log(results1[0].guardian_count);
        res.send({
          "code":400,
          "result":true,
