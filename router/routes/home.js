@@ -11,10 +11,12 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here home API;");
    console.log(req.query.willid);
-   var query1 = 'SELECT a.will_id as willid, COUNT(CASE WHEN party_type = "beneficiary" THEN 1 END) AS beneficiary_count, COUNT(CASE WHEN party_type LIKE "%witness" THEN 1 END) AS witness_count, COUNT(CASE WHEN party_type LIKE " %executor" THEN 1 END) AS executor_count FROM parties a WHERE a.will_id=? GROUP BY willid';
+   var query1 = 'SELECT a.will_id as willid, COUNT(CASE WHEN party_type = "beneficiary" THEN 1 END) AS beneficiary_count, COUNT(CASE WHEN party_type LIKE "%witness" THEN 1 END) AS witness_count, COUNT(CASE WHEN party_type LIKE " %executor" THEN 1 END) AS executor_count, COUNT(CASE WHEN party_type LIKE " %guardian" THEN 1 END) AS guardian_count FROM parties a WHERE a.will_id=? GROUP BY willid';
    var query2 = 'SELECT b.will_id as willid, COUNT(belongings_id) as belongings_count FROM beneficiary_belongings b WHERE b.will_id=? GROUP BY willid';
+   var query3 = 'SELECT log_details, DATE(log_ts) as last_updated_dt from log where will_id=? order by log_ts desc limit 1';
    db.query(query1, [req.query.willid], function (error, results1, fields) {
 	 db.query(query2, [req.query.willid], function (error, results2, fields) {
+	 db.query(query3, [req.query.willid], function (error, results3, fields) {
      if(results1.length==0){
        res.send({
          "code":400,
@@ -23,7 +25,10 @@ router.get('/', function (req, res) {
          "beneficiary_count":0,
          "witness_count":0,
          "executor_count":0,
-         "belongings_count":0
+         "guardian_count":0,
+         "belongings_count":0,
+         "log_details": results3[0].log_details,
+         "last_updated_dt": results3[0].last_updated_dt
        });
      }
      else if(results2.length==0){
@@ -34,7 +39,10 @@ router.get('/', function (req, res) {
          "beneficiary_count":results1[0].beneficiary_count,
          "witness_count":results1[0].witness_count,
          "executor_count":results1[0].executor_count,
-         "belongings_count":0
+         "guardian_count":results1[0].guardian_count,
+         "belongings_count":0,
+         "log_details": results3[0].log_details,
+         "last_updated_dt": results3[0].last_updated_dt
        });
      }
      else{
@@ -45,9 +53,13 @@ router.get('/', function (req, res) {
          "beneficiary_count":results1[0].beneficiary_count,
          "witness_count":results1[0].witness_count,
          "executor_count":results1[0].executor_count,
-         "belongings_count":results2[0].belongings_count
+         "guardian_count":results1[0].guardian_count,
+         "belongings_count":results2[0].belongings_count,
+         "log_details": results3[0].log_details,
+         "last_updated_dt": results3[0].last_updated_dt
        });
      }
+  });
   });
 	});
 });
