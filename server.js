@@ -40,6 +40,7 @@ const addcustomerfeedback=require('./router/routes/addcustomerfeedback');
 const getcustomerfeedback=require('./router/routes/getcustomerfeedback');
 const editExecutors=require('./router/routes/editExecutors');
 const mailWitness=require('./router/routes/mailWitness');
+const willverification=require('./router/routes/willverification');
 
 
 //**************Admin Portal*****************//
@@ -89,7 +90,7 @@ app.use('/api/addcustomerfeedback?:willid', addcustomerfeedback);
 app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
 app.use('/api/editExecutors?:willid', editExecutors);
 app.use('/api/mailWitness?:willid', mailWitness);
-
+app.use('/willverification?:id', willverification);
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
