@@ -5,7 +5,8 @@ var connection = mysql.createConnection({
   user     : 'root', //mysql database user name
   password : 'youmayenter', //mysql database password
   database : 'willodb', //mysql database name
-  multipleStatements : true
+  multipleStatements : true,
+  dateStrings: true
 });
 
 connection.connect(function(err) {
