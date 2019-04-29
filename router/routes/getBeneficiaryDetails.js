@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here beneficiary details;")
    console.log(req.query.beneficiaryName);
-   db.query('select user_id, name, relationship, contact, email from user where name =?', [req.query.beneficiaryName], function (error, results, fields) {
+   db.query('select user_id, name, relationship, contact, email, dob from user where name =?', [req.query.beneficiaryName], function (error, results, fields) {
 	  if (error) throw error;
 	  res.end(JSON.stringify(results));
 	});
