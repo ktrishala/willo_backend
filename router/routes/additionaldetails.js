@@ -18,6 +18,7 @@ router.post('/', function (req, res) {
   console.log("Reached profile 2");
   console.log(req.body.nameofchild.length);
   console.log(req.body.nameofchild);
+  console.log(req.body.spouse);
   if(req.body.nameofchild.length>0){
     var key=0;
     db.query('UPDATE will SET children ="Y" where will_id=?', [req.query.willid], function (error, results, fields) {
@@ -39,6 +40,12 @@ router.post('/', function (req, res) {
     });
     db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [req.query.willid], function (error, results, fields) {
       db.query('UPDATE user SET children ="N" where user_id=?', [results[0].user_id], function (error, results, fields) {
+      });
+    });
+  }
+  if(req.body.spouse.length>0){
+    db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [req.query.willid], function (error, results, fields) {
+      db.query('UPDATE user SET marital_status ="Y", spouse=? where user_id=?', [req.body.spouse, results[0].user_id], function (error, results, fields) {
       });
     });
   }
