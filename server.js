@@ -41,7 +41,7 @@ const getcustomerfeedback=require('./router/routes/getcustomerfeedback');
 const editExecutors=require('./router/routes/editExecutors');
 const mailWitness=require('./router/routes/mailWitness');
 const willverification=require('./router/routes/willverification');
-
+const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
 
 //**************Admin Portal*****************//
 //Getting our POSTS routes
@@ -91,6 +91,7 @@ app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
 app.use('/api/editExecutors?:willid', editExecutors);
 app.use('/api/mailWitness?:willid', mailWitness);
 app.use('/willverification?:id', willverification);
+app.use('/api/getlastpaymentdt?:willid', getlastpaymentdt);
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
