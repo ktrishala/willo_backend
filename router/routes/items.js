@@ -13,7 +13,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here item;");
    console.log(req.query.willid);
-   db.query('SELECT belongings_id, belongings_name, belongings_category, belongings_desc from belongings where belongings_id in (select belongings_id from beneficiary_belongings where will_id =?)', [req.query.willid], function (error, results, fields) {
+   db.query('SELECT a.belongings_id as belongings_id, a.belongings_category as belongings_category, a.belongings_name as belongings_name, b.belongings_desc as belongings_desc from belongings a inner join beneficiary_belongings b on a.belongings_id=b.belongings_id and b.will_id=? group by belongings_id, belongings_category, belongings_name, belongings_desc', [req.query.willid], function (error, results, fields) {
   	  if (error) throw error;
   	  res.end(JSON.stringify(results));
    });
