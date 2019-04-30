@@ -16,7 +16,7 @@ console.log(req.query.willid);
 console.log(req.body.belongings_id);
 console.log(req.body.pct_allocation);
 console.log(req.body.user_id);
-db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, req.body.belongings_id], function (error, results, fields) {
+db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, parseInt(req.body.belongings_id)], function (error, results, fields) {
     if (error) throw error;
     else if(results[0].sum_pct_allocation===100){
       console.log("Entered here 1");
@@ -26,9 +26,9 @@ db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belo
         "msg": "This item is already allocated 100%"
       });
     }
-    else if((req.body.pct_allocation+ results[0].sum_pct_allocation)<=100 && results[0].sum_pct_allocation===0){
+    else if((parseInt(req.body.pct_allocation)+ results[0].sum_pct_allocation)<=100 && results[0].sum_pct_allocation===0){
       console.log("Entered here 2");
-      db.query('UPDATE beneficiary_belongings SET user_id =?, pct_allocation = ? where will_id=? and belongings_id=?', [req.body.user_id, req.body.pct_allocation, req.query.willid, req.body.belongings_id], function (error, results, fields) {
+      db.query('UPDATE beneficiary_belongings SET user_id =?, pct_allocation = ? where will_id=? and belongings_id=?', [parseInt(req.body.user_id), parseInt(req.body.pct_allocation), req.query.willid, (req.body.belongings_id)], function (error, results, fields) {
             res.send({
               "code":200,
               "result":true,
@@ -36,9 +36,9 @@ db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belo
             });
       });
     }
-    else if((req.body.pct_allocation+ results[0].sum_pct_allocation)<=100 && results[0].sum_pct_allocation!=0){
+    else if((parseInt(req.body.pct_allocation)+ results[0].sum_pct_allocation)<=100 && results[0].sum_pct_allocation!=0){
       console.log("Entered here 3");
-      db.query('INSERT INTO beneficiary_belongings (belongings_id, will_id, user_id, pct_allocation) VALUES(?, ?, ?, ?)', [req.body.belongings_id, req.query.willid, req.body.user_id, req.body.pct_allocation], function (error, results, fields) {
+      db.query('INSERT INTO beneficiary_belongings (belongings_id, will_id, user_id, pct_allocation) VALUES(?, ?, ?, ?)', [parseInt(req.body.belongings_id), req.query.willid, parseInt(req.body.user_id), parseInt(req.body.pct_allocation)], function (error, results, fields) {
             res.send({
               "code":200,
               "result":true,
@@ -46,7 +46,7 @@ db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belo
             });
       });
     }
-    else if((req.body.pct_allocation+ results[0].sum_pct_allocation)>100){
+    else if((parseInt(req.body.pct_allocation)+ results[0].sum_pct_allocation)>100){
       console.log("Entered here 4");
       var remaining_pct =100- results[0].sum_pct_allocation;
             res.send({
