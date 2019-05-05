@@ -13,7 +13,7 @@ var mailTransporter = nodemailer.createTransport({
  service: 'gmail',
  auth: {
         user: 'willojb2@gmail.com',
-        pass: 'youmayenter'
+        pass: 'tcawfdwqdwodavrh'
     }
 });
 
@@ -62,8 +62,8 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
               var will_status ='I';
               var children ='N';
               db.query('INSERT INTO will (template_id,will_status,children, user_id) VALUES(?,?,?,?)', [template_id, will_status, children, user_id], function (error, results1, fields) {
-
               });
+
               console.log("Inserting done");
               db.query('select will_id from will where user_id=?',[user_id], function (error, results2, fields) {
 
@@ -71,6 +71,8 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
                 var user_type='owner';
                 var will_id = results2[0].will_id;
                 var user_status ='A';
+                db.query('INSERT INTO log (will_id, log_details) VALUES (?,"Signed up for willo")',[will_id], function (error, res, fields) {
+                });
                 db.query('INSERT INTO parties (party_type, will_id, user_id, user_status) VALUES(?,?,?,?)', [user_type, will_id, user_id, user_status], function (error, results1, fields) {
                   res.send({
                     "code":400,
