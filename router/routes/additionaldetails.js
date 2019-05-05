@@ -19,7 +19,9 @@ router.post('/', function (req, res) {
   console.log(req.body.nameofchild.length);
   console.log(req.body.nameofchild);
   console.log(req.body.spouse);
-  if(req.body.nameofchild.length>0){
+  console.log(req.body.nameofchild[0].name);
+
+  if(req.body.nameofchild.length>0 && req.body.nameofchild[0].name!=""){
     var key=0;
     db.query('UPDATE will SET children ="Y" where will_id=?', [req.query.willid], function (error, results, fields) {
     });
