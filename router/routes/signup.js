@@ -41,7 +41,7 @@ router.post('/', function (req, res) {
     	  if (error) throw error;
     	});
       //req.get('host')
-      link="http://"+"localhost:8100" +"/verify?id="+token_id;
+      var link="http://"+"localhost:8100" +"/verify?id="+token_id;
       var mailOptions = {
         from: 'willo@gmail.com', // sender address
         to: email, // list of receivers
