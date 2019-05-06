@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
     // db.query(query3, [req.query.willid], function (error, results3, fields) {
     //   results.push(results3);
       res.send(JSON.stringify(results));
-    });
+    //});
 
 	});
 });
