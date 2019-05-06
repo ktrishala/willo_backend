@@ -43,6 +43,7 @@ const editExecutors=require('./router/routes/editExecutors');
 const mailWitness=require('./router/routes/mailWitness');
 const willverification=require('./router/routes/willverification');
 const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
+const updatepayment=require('./router/routes/updatepayment');
 
 //**************Admin Portal*****************//
 //Getting our POSTS routes
@@ -94,7 +95,7 @@ app.use('/api/editExecutors?:willid', editExecutors);
 app.use('/api/mailWitness?:willid', mailWitness);
 app.use('/willverification?:id', willverification);
 app.use('/api/getlastpaymentdt?:willid', getlastpaymentdt);
-
+app.use('/api/updatepayment?:willid', updatepayment);
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
 app.use('/api/stats', stats);
