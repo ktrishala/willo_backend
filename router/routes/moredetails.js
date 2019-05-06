@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
   var state = req.body.state;
   //var own_property = req.body.own_property;
   var zip =req.body.zip;
-  console.log("Reached here for updating profile 1");
+  console.log("Reached here for updating profile 3");
 
   db.query('SELECT user_id from parties where will_id=? and party_type="owner"', [will_id], function (error, results, fields) {
    if (error) throw error;
