@@ -19,8 +19,10 @@ const moredetails=require('./router/routes/moredetails');
 const addBeneficiary=require('./router/routes/addBeneficiary');
 const deleteBeneficiary=require('./router/routes/deleteBeneficiary');
 const addItem=require('./router/routes/addItem');
+const editItem=require('./router/routes/editItem');
 const deleteItem=require('./router/routes/deleteItem');
 const addWitness=require('./router/routes/addWitness');
+const editBeneficiary=require('./router/routes/editBeneficiary');
 const getBeneficiaryList=require('./router/routes/getBeneficiaryList');
 const items=require('./router/routes/items');
 const getBeneficiaryDetails=require('./router/routes/getBeneficiaryDetails');
@@ -45,6 +47,7 @@ const willverification=require('./router/routes/willverification');
 const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
 const updatepayment=require('./router/routes/updatepayment');
 const pricing=require('./router/routes/pricing');
+
 //**************Admin Portal*****************//
 //Getting our POSTS routes
 //Getting our POSTS routes
@@ -74,7 +77,9 @@ app.use('/api/profile1?:willid', profile1);
 app.use('/api/additionaldetails?:willid', additionaldetails);
 app.use('/api/moredetails?:willid', moredetails);
 app.use('/api/addBeneficiary?:willid', addBeneficiary);
+app.use('/api/editBeneficiary?:user_id', editBeneficiary);
 app.use('/api/addItem?:willid', addItem);
+app.use('/api/editItem?:willid', editItem);
 app.use('/api/addWitness?:willid', addWitness);
 app.use('/api/deleteBeneficiary?:benid?:willid', deleteBeneficiary);
 app.use('/api/getBeneficiaryList?:willid', getBeneficiaryList);
