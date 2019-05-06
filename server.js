@@ -47,6 +47,8 @@ const willverification=require('./router/routes/willverification');
 const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
 const updatepayment=require('./router/routes/updatepayment');
 const pricing=require('./router/routes/pricing');
+const assetbenlist=require('./router/routes/assetbenlist');
+
 
 //**************Admin Portal*****************//
 //Getting our POSTS routes
@@ -107,6 +109,8 @@ app.use('/willverification?:id', willverification);
 app.use('/api/getlastpaymentdt?:willid', getlastpaymentdt);
 app.use('/api/updatepayment?:willid', updatepayment);
 app.use('/api/pricing', pricing);
+app.use('/api/assetbenlist?:willid', assetbenlist);
+
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
