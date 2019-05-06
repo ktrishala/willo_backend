@@ -16,6 +16,7 @@ router.get('/', function (req, res) {
     console.log(JSON.stringify(results));
      var query3 = 'SELECT log_details, DATE(log_ts) as last_updated_dt from log where will_id=? order by log_ts desc limit 1';
      db.query(query3, [req.query.willid], function (error, results3, fields) {
+       console.log(JSON.stringify(results3));
        results.push(results3);
       res.send(JSON.stringify(results));
     });
