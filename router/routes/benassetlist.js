@@ -9,14 +9,14 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 router.get('/', function (req, res) {
-  console.log("Reached customerfb in server");
-   db.query('SELECT a.name as name, a.email as email, b.feedback as feedback, b.feedback_ts as feedback_ts, b.admin_feedback as admin_feedback from willodb.user a inner join willodb.user_feedback b on a.user_id =b.user_id where b.resolved = \'N\' order by feedback_ts', 
-                        function (error, results, fields) 
-  {
+   console.log("The will id is:"+req.query.will_id);
+   db.query('SELECT b.user_id as user_id, b.name as name, GROUP_CONCAT(DISTINCT c.belongings_name order by c.belongings_name) as belongings_name\
+from beneficiary_belongings a inner join user b on a.user_id = b.user_id inner join belongings c on a.belongings_id = c.belongings_id where a.will_id=? \
+GROUP BY user_id, name;',[req.query.will_id], function (error, results, fields) {
     if (error) throw error;
     console.log(JSON.stringify(results));
     res.send(JSON.stringify(results));
-  });
+	});
 });
 
 module.exports = router;

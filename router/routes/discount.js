@@ -9,20 +9,21 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 router.get('/', function (req, res) {
-	db.query('SELECT * FROM admin', function (error, results, fields) {
-	 if (error) throw error;
-	 //console.log(JSON.stringify(results));
-	 res.send(JSON.stringify(results));
- });
+   db.query('SELECT * FROM discount', function (error, results, fields) {
+    if (error) throw error;
+    //console.log(JSON.stringify(results));
+    res.send(JSON.stringify(results));
+  });
 });
 
 router.post('/', function (req, res) {
   var typed = req.body.typed;
-	if(typed==="Insert"){
-    var adminName = req.body.adminName;
-    var adminPassword = req.body.adminPassword;
-   
-    if(adminName==undefined||adminPassword==undefined){
+  if(typed==="Insert"){
+    var promoCode = req.body.promoCode;
+    var discountVal = req.body.discountVal;
+    var discountType = req.body.discountType;
+    var activityType = req.body.activityType;
+    if(promoCode==undefined||discountVal==undefined||discountType==undefined||activityType==undefined){
     		res.send({
   			"code":210,
   			"result":false
@@ -30,8 +31,7 @@ router.post('/', function (req, res) {
   		throw error;
     }
     else{
-			
-    	var sql = "INSERT INTO admin (username, password) VALUES (\'"+adminName+"\',\'"+adminPassword+"\')"
+    	var sql = "INSERT INTO discount (promo_code,discount_value,discount_type,activity_flag) VALUES(\'"+promoCode+"\',\'"+discountVal+"\',\'"+discountType+"\',\'"+activityType+"\')"
     	db.query(sql, function (error, results, fields){
     		if (error) 
   	{
@@ -50,11 +50,10 @@ router.post('/', function (req, res) {
     });
     }
   }
-
   else if(typed==="Update"){
-    var selectedAdmin = req.body.selectedAdmin;
+    var selectedPromo = req.body.selectedPromo;
     var activitySelected = req.body.activitySelected;
-    var sql = "UPDATE admin SET status =(\'"+activitySelected+"\') WHERE username=(\'"+selectedAdmin+"\')"
+    var sql = "UPDATE discount SET activity_flag =(\'"+activitySelected+"\') WHERE promo_code=(\'"+selectedPromo+"\')"
     db.query(sql, function (error, results, fields){
       if (error) 
   {
@@ -72,9 +71,6 @@ router.post('/', function (req, res) {
     });
   });
 }
-
 });
-
-
 
 module.exports = router;
