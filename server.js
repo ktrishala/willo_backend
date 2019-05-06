@@ -44,8 +44,9 @@ const mailWitness=require('./router/routes/mailWitness');
 const willverification=require('./router/routes/willverification');
 const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
 const updatepayment=require('./router/routes/updatepayment');
-
+const pricing=require('./router/routes/pricing');
 //**************Admin Portal*****************//
+//Getting our POSTS routes
 //Getting our POSTS routes
 const posts=require('./router/routes/posts');
 const stats=require('./router/routes/stats');
@@ -57,8 +58,12 @@ const customermail=require('./router/routes/customermail');
 const addadmin = require('./router/routes/addadmin');
 const financial = require('./router/routes/financial');
 const piedetails = require('./router/routes/piedetails');
-const submodel = require('./router/routes/submodel');
 const asset = require('./router/routes/asset');
+const submodel = require('./router/routes/submodel');
+const discount = require('./router/routes/discount');
+const benassetlist = require('./router/routes/benassetlist');
+const respondedcust = require('./router/routes/respondedcust');
+const useridfeedback = require('./router/routes/useridfeedback');
 //**********************************************//
 
 app.use('/api/login', login);
@@ -96,6 +101,8 @@ app.use('/api/mailWitness?:willid', mailWitness);
 app.use('/willverification?:id', willverification);
 app.use('/api/getlastpaymentdt?:willid', getlastpaymentdt);
 app.use('/api/updatepayment?:willid', updatepayment);
+app.use('/api/pricing', pricing);
+
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
 app.use('/api/stats', stats);
@@ -109,6 +116,10 @@ app.use('/api/financial', financial);
 app.use('/api/piedetails', piedetails);
 app.use('/api/submodel', submodel);
 app.use('/api/asset?:will_id', asset);
+app.use('/api/discount', discount);
+app.use('/api/benassetlist?:will_id', benassetlist);
+app.use('/api/respondedcust?:email_id', respondedcust);
+app.use('/api/useridfeedback?:user_id', useridfeedback);
 //**********************************************//
 
 //start mysql connection
