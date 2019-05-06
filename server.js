@@ -77,7 +77,7 @@ app.use('/api/profile1?:willid', profile1);
 app.use('/api/additionaldetails?:willid', additionaldetails);
 app.use('/api/moredetails?:willid', moredetails);
 app.use('/api/addBeneficiary?:willid', addBeneficiary);
-app.use('/api/updateBen?::willid', updateBen);
+app.use('/api/updateBen?:willid', updateBen);
 app.use('/api/addItem?:willid', addItem);
 app.use('/api/editItem?:willid', editItem);
 app.use('/api/addWitness?:willid', addWitness);
