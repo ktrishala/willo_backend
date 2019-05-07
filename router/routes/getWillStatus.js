@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
   console.log("Reached here list will status;");
    console.log(req.query.willid);
-   db.query('select will_id, will_status from will where will_id=', [req.query.willid], function (error, results, fields) {
+   db.query('select will_id, will_status from will where will_id=?', [req.query.willid], function (error, results, fields) {
 	  if (error) throw error;
 	  res.end(JSON.stringify(results));
 	});
