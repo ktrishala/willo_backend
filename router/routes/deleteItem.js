@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.post('/', function (req, res) {
   //var postData  = req.body;
 
- db.query('DELETE from beneficiary_belongings where belongings_id=?', [req.body.belongings_id], function (error, results, fields) {
+ db.query('DELETE from beneficiary_belongings where belongings_id=? and will_id=?', [req.query.belongings_id,req.query.willid,], function (error, results, fields) {
        if (error) throw error;
        var details = 'Deleted belongings ' + req.body.belongings_name;
        db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
