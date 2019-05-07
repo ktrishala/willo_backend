@@ -19,8 +19,15 @@ router.get('/', function (req, res) {
        console.log({"log_details":results3[0].log_details,"last_updated_dt":results3[0].last_updated_dt});
        results.push({"log_details":results3[0].log_details,"last_updated_dt":results3[0].last_updated_dt});
        db.query('select last_payment_dt, due_date from finance where will_id=? order by due_date desc limit 1', [req.query.will_id], function (error, results4, fields) {
-      results.push({"last_payment_dt":results4[0].last_payment_dt,"due_date":results4[0].due_date});
-      res.send(JSON.stringify(results));
+         if(results4.length>0){
+           results.push({"payment_status":true});
+           res.send(JSON.stringify(results));
+         }
+         else{
+           results.push({"payment_status":false});
+           res.send(JSON.stringify(results));
+         }
+
     });
   });
 
