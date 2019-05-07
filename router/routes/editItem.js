@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
 db.query('INSERT INTO belongings (belongings_name, belongings_category) VALUES(?, ?)', [req.body.belongings_name, req.body.belongings_category], function (error, results, fields) {
       if (error) throw error;
       else{
-        db.query('SELECT belongings_id from belongings where belongings_name=?', [req.body.belongings_name], function (error, results, fields) {
+        db.query('SELECT belongings_id from belongings where belongings_name=? and belongings_category=? and belongings_id!=?', [req.body.belongings_name, req.body.belongings_category, req.body.belongings_id], function (error, results, fields) {
          console.log(results[0].belongings_id);
           db.query('UPDATE beneficiary_belongings SET belongings_id=?, belongings_desc=? where will_id=? and belongings_id=?', [results[0].belongings_id, req.body.belongings_desc ,req.query.willid, req.body.belongings_id], function (error, results, fields) {
         });
