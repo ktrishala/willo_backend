@@ -47,10 +47,16 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
 
           console.log("Reached here for updating parties signed_dt");
           if(req.body.response==="yes"){
-            db.query('UPDATE parties SET signed_dt=CURRENT_DATE where will_id=? and user_id=?',[results[0].will_id,results[0].user_id], function (error, results, fields) {
+            db.query('UPDATE parties SET signed_dt=CURRENT_DATE where will_id=? and user_id=?',[results[0].will_id,results[0].user_id], function (error, results9, fields) {
               if (error) {
                  console.log("error ocurred",error);
               }
+              db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness" and signed_dt IS NOT NULL', [results[0].will_id], function (error, results5, fields) {
+                if(results[0].witness_count===2){
+                  db.query('UPDATE will SET will_status="PENDING FILING" where will_id=?', [results[0].will_id], function (error, results, fields) {
+                  });
+                }
+              });
                 res.send({
                   "code":400,
                   "result":true,

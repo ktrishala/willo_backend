@@ -73,6 +73,7 @@ const discount = require('./router/routes/discount');
 const benassetlist = require('./router/routes/benassetlist');
 const respondedcust = require('./router/routes/respondedcust');
 const useridfeedback = require('./router/routes/useridfeedback');
+const setwillstatus = require('./router/routes/setwillstatus');
 //**********************************************//
 
 app.use('/api/login', login);
@@ -135,6 +136,8 @@ app.use('/api/discount', discount);
 app.use('/api/benassetlist?:will_id', benassetlist);
 app.use('/api/respondedcust?:email_id', respondedcust);
 app.use('/api/useridfeedback?:user_id', useridfeedback);
+app.use('/api/setwillstatus?:will_id', setwillstatus);
+
 //**********************************************//
 
 //start mysql connection

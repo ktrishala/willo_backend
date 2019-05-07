@@ -226,6 +226,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
      });
    }
  });
+ db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+   if(results[0].witness_count>1){
+     db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+     });
+   }
+ });
 });
 
 module.exports = router;

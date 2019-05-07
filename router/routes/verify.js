@@ -59,7 +59,7 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
           db.query('SELECT * FROM will WHERE user_id = ? ', [user_id], function (error, results1, fields) {
             if(results.length>0){
               var template_id =1;
-              var will_status ='I';
+              var will_status ='INCOMPLETE';
               var children ='N';
               db.query('INSERT INTO will (template_id,will_status,children, user_id) VALUES(?,?,?,?)', [template_id, will_status, children, user_id], function (error, results1, fields) {
               });
@@ -83,7 +83,6 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
               });
             }
           });
-
         });
         }
     else
