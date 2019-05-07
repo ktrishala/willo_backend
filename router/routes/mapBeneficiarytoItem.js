@@ -12,6 +12,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.post('/', function (req, res) {
   //var postData  = req.body;
 console.log("Reached map item to beneficiary");
+console.log(req.body);
 for(key in req.body.postData){
   console.log(req.query.willid);
   console.log(req.body.postData[key].belongings_id);
