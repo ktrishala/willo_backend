@@ -19,7 +19,7 @@ var mailTransporter = nodemailer.createTransport({
 
 
 //Verification mailOptions
-router.get('/',function(req,res){
+router.post('/',function(req,res){
   console.log("Reached witness verify");
   var host = req.get('host');
 console.log(req.protocol+":/"+req.get('host'));
@@ -46,17 +46,26 @@ if((req.protocol+"://"+req.get('host'))==("http://"+host))
         console.log("The user id", user_id);
 
           console.log("Reached here for updating parties signed_dt");
-          db.query('UPDATE parties SET signed_dt=CURRENT_DATE where will_id=? and user_id=?',[results[0].will_id,results[0].user_id], function (error, results, fields) {
-            if (error) {
-               console.log("error ocurred",error);
-            }
-              res.send({
-                "code":400,
-                "result":true,
-                "msg":"Witness has verified"
-              })
+          if(req.body.response==="yes"){
+            db.query('UPDATE parties SET signed_dt=CURRENT_DATE where will_id=? and user_id=?',[results[0].will_id,results[0].user_id], function (error, results, fields) {
+              if (error) {
+                 console.log("error ocurred",error);
+              }
+                res.send({
+                  "code":400,
+                  "result":true,
+                  "msg":"Witness has verified"
+                })
+            });
+          }
+          else{
+            res.send({
+              "code":400,
+              "result":true,
+              "msg":"Witness did not verify"
+            })
+          }
 
-          });
 }
 });
 }

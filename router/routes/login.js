@@ -48,7 +48,7 @@ router.post('/', function (req, res) {
           var mailOptions = {
             from: 'willo@gmail.com', // sender address
             to: email, // list of receivers
-            subject: 'Please confirm your email by clicking the link below', // Subject line
+            subject: 'Thanks for signing up with Willo! Please confirm your email address here', // Subject line
             html: link   // plain text body
           };
           mailTransporter.sendMail(mailOptions, function (err, info) {
