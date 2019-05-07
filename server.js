@@ -48,6 +48,9 @@ const getlastpaymentdt=require('./router/routes/getlastpaymentdt');
 const updatepayment=require('./router/routes/updatepayment');
 const pricing=require('./router/routes/pricing');
 const assetbenlist=require('./router/routes/assetbenlist');
+const getBelongingsDetails=require('./router/routes/getBelongingsDetails');
+
+
 
 
 //**************Admin Portal*****************//
@@ -105,12 +108,12 @@ app.use('/api/addcustomerfeedback?:willid', addcustomerfeedback);
 app.use('/api/getcustomerfeedback?:willid', getcustomerfeedback);
 app.use('/api/editExecutors?:willid', editExecutors);
 app.use('/api/mailWitness?:willid', mailWitness);
-app.use('/api/willverification?:id', willverification);
+app.use('/willverification?:id', willverification);
 app.use('/api/getlastpaymentdt?:willid', getlastpaymentdt);
 app.use('/api/updatepayment?:willid', updatepayment);
 app.use('/api/pricing', pricing);
 app.use('/api/assetbenlist?:willid', assetbenlist);
-
+app.use('/api/getBelongingsDetails?:belongings_id?:willid', getBelongingsDetails);
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
