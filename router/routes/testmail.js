@@ -12,6 +12,7 @@ var db = require('../../db');
 const sgMail = require('@sendgrid/mail');
 
 router.get('/', function (req, res) {
+console.log("Reached here");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const msg = {
   to: 'tkaushik64@gmail.com',
