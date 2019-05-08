@@ -3,19 +3,23 @@ const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+var SENDGRID_APY_KEY ='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';
+sgMail.setApiKey(SENDGRID_APY_KEY);
 
-var mailTransporter = nodemailer.createTransport({
- service: 'gmail',
- auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'tcawfdwqdwodavrh'
-    }
-});
+// var mailTransporter = nodemailer.createTransport({
+//  service: 'gmail',
+//  auth: {
+//         user: 'willojb2@gmail.com',
+//         pass: 'tcawfdwqdwodavrh'
+//     }
+// });
+
 router.post('/', function (req, res) {
    var postData  = req.body;
    var email = req.body.email;
@@ -41,14 +45,14 @@ router.post('/', function (req, res) {
     	  if (error) throw error;
     	});
       //req.get('host')
-      var link="http://"+"localhost:8100" +"/verify?id="+token_id;
+      var link="http://"+"3.17.221.236" +"/verify?id="+token_id;
       var mailOptions = {
-        from: 'willo@gmail.com', // sender address
+        from: 'Willo <hello@mywillo.com>', // sender address
         to: email, // list of receivers
         subject: 'Please confirm your email by clicking the link below', // Subject line
         html: "Thanks for signing up with Willo! Please confirm your email address here "+ link   // plain text body
       };
-      mailTransporter.sendMail(mailOptions, function (err, info) {
+      sgMail.send(mailOptions, function (err, info) {
          if(err)
            console.log(err)
          else
