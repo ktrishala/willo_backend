@@ -13,7 +13,8 @@ const sgMail = require('@sendgrid/mail');
 
 router.get('/', function (req, res) {
 console.log("Reached here");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+var SENDGRID_APY_KEY ='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';
+sgMail.setApiKey(SENDGRID_APY_KEY);
 const msg = {
   to: 'tkaushik64@gmail.com',
   from: 'hello@willo.com',
