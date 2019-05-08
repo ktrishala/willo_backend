@@ -33,9 +33,9 @@ router.post('/', function (req, res) {
      console.log("error ocurred",error);
        }
        var mailOptions = {
-        from: 'willo@gmail.com', // sender address
+        from: 'Willo 👥 <hello@mywillo.com>', // sender address
         to: emailid, // list of receivers
-        subject: 'From Willo:Your online will making app', // Subject line
+        subject: 'Willo:Your online will making app', // Subject line
         html: response   // plain text body
       };
       mailTransporter.sendMail(mailOptions, function (err, info) {
@@ -46,7 +46,7 @@ router.post('/', function (req, res) {
           "result":false
         })
          }
-          
+
          else{
           console.log(info);
            res.send({
@@ -54,7 +54,7 @@ router.post('/', function (req, res) {
             "result":true
             })
          }
-           
+
       });
      });
     }
@@ -62,6 +62,6 @@ router.post('/', function (req, res) {
 });
 });
 
- 
+
 
 module.exports = router;
