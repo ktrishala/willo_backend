@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
      console.log("error ocurred",error);
        }
        var mailOptions = {
-        from: 'Willo 👥 <hello@mywillo.com>', // sender address
+        from: 'hello@mywillo.com <hello@mywillo.com>', // sender address
         to: emailid, // list of receivers
         subject: 'Willo:Your online will making app', // Subject line
         html: response   // plain text body
