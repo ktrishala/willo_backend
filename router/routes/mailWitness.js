@@ -24,19 +24,20 @@ router.get('/', function (req, res) {
   var result = '';
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
   return result;}
-      db.query('SELECT user_id, email FROM user WHERE user_id in(select user_id from parties where will_id=? and party_type like "%witness")',[req.query.willid], function (error, results, fields) {
+      db.query('SELECT user_id, email, name FROM user WHERE user_id in(select user_id from parties where will_id=? and party_type like "%witness")',[req.query.willid], function (error, results, fields) {
          //if (err) throw error;
 
           for (var i = 0; i < results.length; i++) {
             console.log("Reached here 1", results[i].user_id);
+            var name = results[i].name;
             var token_id = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            link="http://"+"localhost:8100" +"/witnessverify?id="+token_id;
+            link="http://"+"3.14.225.238" +"/witnessverify?id="+token_id;
             db.query('UPDATE user set token_id=? where user_id=?',[token_id, results[i].user_id], function (error, results1, fields) {
             });
             var mailOptions = {
               from: 'willo@gmail.com', // sender address
               to: results[i].email, // list of receivers
-              subject: 'Please verify the will by clicking the link below', // Subject line
+              subject: "Please verify "+ name +"'s will by clicking the link below", // Subject line
               html: link   // plain text body
             };
             mailTransporter.sendMail(mailOptions, function (err, info) {
