@@ -74,6 +74,7 @@ const benassetlist = require('./router/routes/benassetlist');
 const respondedcust = require('./router/routes/respondedcust');
 const useridfeedback = require('./router/routes/useridfeedback');
 const setwillstatus = require('./router/routes/setwillstatus');
+const testmail = require('./router/routes/testmail');
 //**********************************************//
 
 app.use('/api/login', login);
@@ -117,7 +118,7 @@ app.use('/api/pricing', pricing);
 app.use('/api/assetbenlist?:willid', assetbenlist);
 app.use('/api/getBelongingsDetails?:belongings_id?:willid', getBelongingsDetails);
 app.use('/api/getWillStatus?:willid', getWillStatus);
-
+app.use('/api/testmail', testmail);
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);
