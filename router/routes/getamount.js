@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
   console.log(req.query.willid);
   db.query('SELECT * from discount where promo_code=? and activity_flag="Active"', [req.body.promo_code], function (error, results, fields) {
     console.log(results);
-    if(results==undefined){
+    if(!results.length){
       res.send({
         "result":false,
         "msg":"Invalid code"
