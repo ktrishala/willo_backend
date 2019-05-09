@@ -3,19 +3,21 @@ const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer =require ('nodemailer');
-
-var mailTransporter = nodemailer.createTransport({
-          service: 'gmail',
-           auth: {
-                  user: 'willojb2@gmail.com',
-                  pass: 'tcawfdwqdwodavrh'
-              }
-          });
+const sgMail = require('@sendgrid/mail');
+// var mailTransporter = nodemailer.createTransport({
+//           service: 'gmail',
+//            auth: {
+//                   user: 'willojb2@gmail.com',
+//                   pass: 'tcawfdwqdwodavrh'
+//               }
+//           });
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+var SENDGRID_APY_KEY ='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';
+sgMail.setApiKey(SENDGRID_APY_KEY);
 
 router.post('/', function (req, res) {
 
@@ -33,12 +35,12 @@ router.post('/', function (req, res) {
      console.log("error ocurred",error);
        }
        var mailOptions = {
-        from: 'hello@mywillo.com <hello@mywillo.com>', // sender address
+        from: 'Willo <hello@mywillo.com>', // sender address
         to: emailid, // list of receivers
         subject: 'Willo:Your online will making app', // Subject line
         html: response   // plain text body
       };
-      mailTransporter.sendMail(mailOptions, function (err, info) {
+      sgMail.send(mailOptions, function (err, info) {
          if(err){
            console.log("Sent a false");
            res.send({

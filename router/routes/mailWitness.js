@@ -4,19 +4,22 @@ const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+var SENDGRID_APY_KEY ='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';
+sgMail.setApiKey(SENDGRID_APY_KEY);
 
-var mailTransporter = nodemailer.createTransport({
- service: 'gmail',
- auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'tcawfdwqdwodavrh'
-    }
-});
+// var mailTransporter = nodemailer.createTransport({
+//  service: 'gmail',
+//  auth: {
+//         user: 'willojb2@gmail.com',
+//         pass: 'tcawfdwqdwodavrh'
+//     }
+// });
 router.get('/', function (req, res) {
   console.log("Reached witness mail API");
 
@@ -35,12 +38,12 @@ router.get('/', function (req, res) {
             db.query('UPDATE user set token_id=? where user_id=?',[token_id, results[i].user_id], function (error, results1, fields) {
             });
             var mailOptions = {
-              from: 'willo@gmail.com', // sender address
+              from: 'Willo <hello@mywillo.com>', // sender address
               to: results[i].email, // list of receivers
               subject: "Please verify "+ name +"'s will by clicking the link below", // Subject line
               html: link   // plain text body
             };
-            mailTransporter.sendMail(mailOptions, function (err, info) {
+            sgMail.send(mailOptions, function (err, info) {
                if(err)
                  console.log(err)
                else

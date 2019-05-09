@@ -9,13 +9,13 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-var mailTransporter = nodemailer.createTransport({
- service: 'gmail',
- auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'tcawfdwqdwodavrh'
-    }
-});
+// var mailTransporter = nodemailer.createTransport({
+//  service: 'gmail',
+//  auth: {
+//         user: 'willojb2@gmail.com',
+//         pass: 'tcawfdwqdwodavrh'
+//     }
+// });
 
 
 //Verification mailOptions

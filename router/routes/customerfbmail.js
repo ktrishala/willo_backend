@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer =require ('nodemailer');
 const sgMail = require('@sendgrid/mail');
+
 // var mailTransporter = nodemailer.createTransport({
 //           service: 'gmail',
 //            auth: {
@@ -20,57 +21,51 @@ var SENDGRID_APY_KEY ='SG.wu6m4Tn3T92EI-sJ6qHmXg.S2TtqZuj82WTMMIPzA2LxMQOgMeqMHn
 sgMail.setApiKey(SENDGRID_APY_KEY);
 
 router.post('/', function (req, res) {
-  console.log('Reached fpwd');
-  var emailid= req.body.emailID;
-  results = null;
-  if(emailid==="")
-  {
-    console.log("Sent a false")
-     res.send({
-          "code":200,
-          "result":false
-        });
-  }
-  db.query('SELECT * FROM admin WHERE username = ?',[emailid], function (error, results, fields) {
-    console.log("Querying done");
-    console.log("Results are:" +results)
+
+  console.log("Reached the post in customer mail");
+  var emailid = req.body.emailID;
+  var feedback= req.body.feedback;
+  var response = req.body.response;
+  console.log("The variables are:"+emailid+" "+feedback+" "+response);
+  db.query('SELECT user_id FROM user WHERE email = ?',[emailid], function (error, results, fields) {
   if (error) {
      console.log("error ocurred",error);
-   }
+  }
    else{
     if(results[0]){
-      console.log("Reached in the results length>0 case")
-      var pwd = results[0].password;
-
-      var mailOptions = {
+      console.log("Reached results[0] condition");
+      var user_id =results[0].user_id;
+      db.query('UPDATE user_feedback SET admin_feedback =?, resolved ="Y" where user_id=? and feedback=?',[response, user_id, feedback],
+       function (error, results, fields) {
+      if (error) {
+          console.log("error ocurred",error);
+       }
+       var mailOptions = {
         from: 'Willo <hello@mywillo.com>', // sender address
         to: emailid, // list of receivers
-        subject: 'Below is your admin password', // Subject line
-        html: pwd   // plain text body
+        subject: 'From Willo:Your online will making app', // Subject line
+        html: response   // plain text body
       };
       sgMail.send(mailOptions, function (err, info) {
-         if(err)
-           console.log(err)
-         else
-         {
-           console.log(info);
+         if(err){
+           console.log("Sent a false");
+           res.send({
+          "code":200,
+          "result":false
+          })
+         }
+         else {
+          console.log(info);
            res.send({
             "code":200,
             "result":true
           });
          }
-  });
-  }
-  else{
-    console.log("Sent a false")
-     res.send({
-          "code":200,
-          "result":false
-        })
-  }
-  }
-
+      });
      });
+    }
+  }
+});
 });
 
 

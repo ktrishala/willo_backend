@@ -75,6 +75,8 @@ const respondedcust = require('./router/routes/respondedcust');
 const useridfeedback = require('./router/routes/useridfeedback');
 const setwillstatus = require('./router/routes/setwillstatus');
 const testmail = require('./router/routes/testmail');
+const postblob = require('./router/routes/postblob');
+const customerfbmail = require('./router/routes/customerfbmail');
 //**********************************************//
 
 app.use('/api/login', login);
@@ -139,6 +141,8 @@ app.use('/api/benassetlist?:will_id', benassetlist);
 app.use('/api/respondedcust?:email_id', respondedcust);
 app.use('/api/useridfeedback?:user_id', useridfeedback);
 app.use('/api/setwillstatus?:will_id', setwillstatus);
+app.use('/api/postblob', postblob);
+app.use('/api/customerfbmail', customerfbmail);
 
 //**********************************************//
 
