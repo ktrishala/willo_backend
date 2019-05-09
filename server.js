@@ -78,6 +78,8 @@ const testmail = require('./router/routes/testmail');
 const postblob = require('./router/routes/postblob');
 const customerfbmail = require('./router/routes/customerfbmail');
 const childreninfo = require('./router/routes/childreninfo');
+const getlastpaymentinfo = require('./router/routes/getlastpaymentinfo');
+
 //**********************************************//
 
 app.use('/api/login', login);
@@ -147,6 +149,7 @@ app.use('/api/setwillstatus?:will_id', setwillstatus);
 app.use('/api/postblob', postblob);
 app.use('/api/customerfbmail', customerfbmail);
 app.use('/api/childreninfo', childreninfo);
+app.use('/api/getlastpaymentinfo?:will_id', getlastpaymentinfo);
 
 
 
