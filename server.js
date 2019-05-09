@@ -50,7 +50,7 @@ const pricing=require('./router/routes/pricing');
 const assetbenlist=require('./router/routes/assetbenlist');
 const getBelongingsDetails=require('./router/routes/getBelongingsDetails');
 const getWillStatus=require('./router/routes/getWillStatus');
-
+const getamount=require('./router/routes/getamount');
 
 
 //**************Admin Portal*****************//
@@ -121,6 +121,7 @@ app.use('/api/assetbenlist?:willid', assetbenlist);
 app.use('/api/getBelongingsDetails?:belongings_id?:willid', getBelongingsDetails);
 app.use('/api/getWillStatus?:willid', getWillStatus);
 app.use('/api/testmail', testmail);
+app.use('/api/getamount?:willid', getamount);
 
 //*************Admin Portal***********************//
 app.use('/api/auth', posts);

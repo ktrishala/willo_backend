@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', function (req, res) {
    db.query('SELECT * FROM subscription_model', function (error, results, fields) {
     if (error) throw error;
-    db.query('SELECT * FROM discount where valid_flag="Active"',function (error, results1, fields) {
+    db.query('SELECT * FROM discount where activity_flag="Active"',function (error, results1, fields) {
       results.push({"promo_code":results1[0].promo_code,"discount_value":results1[0].discount_value,"discount_type":results1[0].discount_type});
       res.send(JSON.stringify(results));
     });
