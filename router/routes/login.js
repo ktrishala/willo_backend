@@ -5,13 +5,14 @@ var db = require('../../db');
 var nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
 
-var SENDGRID_APY_KEY ='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';
-sgMail.setApiKey(SENDGRID_APY_KEY);
+
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+var SENDGRID_APY_KEY ='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';
+sgMail.setApiKey(SENDGRID_APY_KEY);
 
 // var mailTransporter = nodemailer.createTransport({
 //  service: 'gmail',
@@ -21,14 +22,9 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 //     }
 // });
 
-router.get('/check', function (req, res) {
-   db.query('select * from user', function (error, results, fields) {
-	  if (error) throw error;
-	  res.end(JSON.stringify(results));
-	});
-});
 
 router.post('/', function (req, res) {
+
   console.log("Entered here");
   var email= req.body.email;
   var password = req.body.password;
@@ -55,7 +51,7 @@ router.post('/', function (req, res) {
             subject: 'Please confirm your email by clicking the link below', // Subject line
             html: "Thanks for signing up with Willo! Please confirm your email address here "+ link   // plain text body
           };
-          sgMail.sendMail(mailOptions, function (err, info) {
+          sgMail.send(mailOptions, function (err, info) {
              if(err)
                console.log(err)
              else
