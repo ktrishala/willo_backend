@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.post('/', function (req, res) {
   console.log("Reached here to get amount for user");
   console.log(req.query.willid);
-  db.query('SELCT * from discount where promo_code=? and activity_flag="Active"', [req.body.promo_code], function (error, results, fields) {
+  db.query('SELECT * from discount where promo_code=? and activity_flag="Active"', [req.body.promo_code], function (error, results, fields) {
     if(results[0].length>0){
       var discount_value= results[0].discount_value;
       var discount_type= results[0].discount_type;
