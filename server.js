@@ -77,6 +77,7 @@ const setwillstatus = require('./router/routes/setwillstatus');
 const testmail = require('./router/routes/testmail');
 const postblob = require('./router/routes/postblob');
 const customerfbmail = require('./router/routes/customerfbmail');
+const childreninfo = require('./router/routes/childreninfo');
 //**********************************************//
 
 app.use('/api/login', login);
@@ -146,6 +147,10 @@ app.use('/api/setwillstatus?:will_id', setwillstatus);
 app.use('/api/postblob', postblob);
 app.use('/api/customerfbmail', customerfbmail);
 app.use('/api/sendcompletedmail?:will_id', sendcompletedmail);
+app.use('/api/childreninfo', childreninfo);
+
+
+
 
 //**********************************************//
 
