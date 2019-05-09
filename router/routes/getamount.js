@@ -12,7 +12,13 @@ router.post('/', function (req, res) {
   console.log("Reached here to get amount for user");
   console.log(req.query.willid);
   db.query('SELECT * from discount where promo_code=? and activity_flag="Active"', [req.body.promo_code], function (error, results, fields) {
-    if(results[0].length>0){
+    if(results==undefined){
+      res.send({
+        "result":false,
+        "msg":"Invalid code"
+      });
+    }
+    else{
       var discount_value= results[0].discount_value;
       var discount_type= results[0].discount_type;
       if(discount_type=="Whole"){
@@ -46,12 +52,6 @@ router.post('/', function (req, res) {
         });
      	});
       }
-    }
-    else{
-      res.send({
-        "result":false,
-        "msg":"Invalid code"
-      });
     }
   });
 });
