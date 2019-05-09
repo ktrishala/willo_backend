@@ -51,7 +51,7 @@ const assetbenlist=require('./router/routes/assetbenlist');
 const getBelongingsDetails=require('./router/routes/getBelongingsDetails');
 const getWillStatus=require('./router/routes/getWillStatus');
 const getamount=require('./router/routes/getamount');
-const sendcompletedmail=require('./router/routes/sendcompletedmail');
+
 
 //**************Admin Portal*****************//
 //Getting our POSTS routes
@@ -146,7 +146,6 @@ app.use('/api/useridfeedback?:user_id', useridfeedback);
 app.use('/api/setwillstatus?:will_id', setwillstatus);
 app.use('/api/postblob', postblob);
 app.use('/api/customerfbmail', customerfbmail);
-app.use('/api/sendcompletedmail?:will_id', sendcompletedmail);
 app.use('/api/childreninfo', childreninfo);
 
 
