@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
   {
     if (error) throw error;
     console.log(JSON.stringify(results));
-    db.query('SELECT email from user where user_id in (SELECT user_id from parties where will_id=? and party_type="owner")',[req.query.will_id],function (error, results1, fields)
+    db.query('SELECT email from user where user_id in (SELECT user_id from parties where will_id=? and party_type="owner")',[req.query.will_id],function (error, results1, fields){
     var email= results1[0].email;
     const mailOptions = {
       to: email,
