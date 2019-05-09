@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
+var nodemailer = require('nodemailer');
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
