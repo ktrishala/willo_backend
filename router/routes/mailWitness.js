@@ -12,13 +12,14 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 
-// var mailTransporter = nodemailer.createTransport({
-//  service: 'gmail',
-//  auth: {
-//         user: 'willojb2@gmail.com',
-//         pass: 'tcawfdwqdwodavrh'
-//     }
-// });
+var mailTransporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'willojb2@gmail.com',
+        pass: 'tcawfdwqdwodavrh'
+    }
+});
+
 router.get('/', function (req, res) {
   console.log("Reached witness mail API");
   var SENDGRID_APY_KEY ='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';
@@ -44,7 +45,8 @@ router.get('/', function (req, res) {
               subject: "Please verify "+ name +"'s will by clicking the link below", // Subject line
               html: link   // plain text body
             };
-            sgMail.send(mailOptions, function (err, info) {
+            //sgMail.send(mailOptions, function (err, info) {
+            mailTransporter.sendMail(mailOptions, function(error, info){
                if(err)
                  console.log(err)
                else

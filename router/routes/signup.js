@@ -12,13 +12,13 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var SENDGRID_APY_KEY ='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';
 sgMail.setApiKey(SENDGRID_APY_KEY);
 
-// var mailTransporter = nodemailer.createTransport({
-//  service: 'gmail',
-//  auth: {
-//         user: 'willojb2@gmail.com',
-//         pass: 'tcawfdwqdwodavrh'
-//     }
-// });
+var mailTransporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'willojb2@gmail.com',
+        pass: 'tcawfdwqdwodavrh'
+    }
+});
 
 router.post('/', function (req, res) {
    var postData  = req.body;
@@ -52,7 +52,8 @@ router.post('/', function (req, res) {
         subject: 'Please confirm your email by clicking the link below', // Subject line
         html: "Thanks for signing up with Willo! Please confirm your email address here "+ link   // plain text body
       };
-      sgMail.send(mailOptions, function (err, info) {
+      //sgMail.send(mailOptions, function (err, info) {
+      mailTransporter.sendMail(mailOptions, function(error, info){
          if(err)
            console.log(err)
          else

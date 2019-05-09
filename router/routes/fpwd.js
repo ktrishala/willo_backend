@@ -4,13 +4,13 @@ var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer =require ('nodemailer');
 const sgMail = require('@sendgrid/mail');
-// var mailTransporter = nodemailer.createTransport({
-//           service: 'gmail',
-//            auth: {
-//                   user: 'willojb2@gmail.com',
-//                   pass: 'tcawfdwqdwodavrh'
-//               }
-//           });
+var mailTransporter = nodemailer.createTransport({
+          service: 'gmail',
+           auth: {
+                  user: 'willojb2@gmail.com',
+                  pass: 'tcawfdwqdwodavrh'
+              }
+          });
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -49,7 +49,8 @@ router.post('/', function (req, res) {
         subject: 'Below is your admin password', // Subject line
         html: pwd   // plain text body
       };
-      sgMail.send(mailOptions, function (err, info) {
+      //sgMail.send(mailOptions, function (err, info) {
+      mailTransporter.sendMail(mailOptions, function(error, info){
          if(err)
            console.log(err)
          else

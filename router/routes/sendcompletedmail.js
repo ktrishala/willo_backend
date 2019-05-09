@@ -1,15 +1,16 @@
-// var mailTransporter = nodemailer.createTransport({
-//  service: 'gmail',
-//  auth: {
-//         user: 'willojb2@gmail.com',
-//         pass: 'tcawfdwqdwodavrh'
-//     }
-// });
+
 const express = require('express');
 const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
 const sgMail = require('@sendgrid/mail');
+var mailTransporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'willojb2@gmail.com',
+        pass: 'tcawfdwqdwodavrh'
+    }
+});
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -29,7 +30,8 @@ const msg = {
   subject: 'The filing of your will is completed',
   html: 'Hello '+name+' , your will is now available.',
 };
-sgMail.send(msg);
+//sgMail.send(msg);
+mailTransporter.sendMail(mailOptions, function(error, info){
 res.send({
 "code":200,
 "result":true
