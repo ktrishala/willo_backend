@@ -10,8 +10,7 @@ router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-var SENDGRID_APY_KEY ='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';
-sgMail.setApiKey(SENDGRID_APY_KEY);
+
 
 // var mailTransporter = nodemailer.createTransport({
 //  service: 'gmail',
@@ -22,6 +21,8 @@ sgMail.setApiKey(SENDGRID_APY_KEY);
 // });
 router.get('/', function (req, res) {
   console.log("Reached witness mail API");
+  var SENDGRID_APY_KEY ='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';
+  sgMail.setApiKey(SENDGRID_APY_KEY);
 
   function randomString(length, chars) {
   var result = '';
