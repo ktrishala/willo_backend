@@ -89,10 +89,10 @@ for(key in req.body){
   });
 }
 
-// res.send({
-//    "code":200,
-//    "result":true,
-//    "msg": "Successfully Added"
-//  });
+res.send({
+   "code":200,
+   "result":true,
+   "msg": "Successfully Added"
+ });
 });
 module.exports = router;
