@@ -10,6 +10,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 router.post('/', function (req, res) {
+  var query= 'SELECT * from beneficiary_belongings where will_id=? and belongings_id=?';
   //var postData  = req.body;
 console.log("Reached map item to beneficiary");
 console.log(req.body[0]);
@@ -18,6 +19,9 @@ for(key in req.body){
   console.log(req.body[key].belongings_id);
   console.log(req.body[key].pct_allocation);
   console.log(req.body[key].user_id);
+  db.query(query, [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results123, fields) {
+    console.log(results123);
+  });
   db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results, fields) {
       console.log(results);
       if (error) throw error;
