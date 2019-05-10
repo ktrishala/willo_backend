@@ -3,14 +3,14 @@ const router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('../../db');
 var nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
+//const sgMail = require('@sendgrid/mail');
 
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-var SENDGRID_APY_KEY ='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';
-sgMail.setApiKey(SENDGRID_APY_KEY);
+// var SENDGRID_APY_KEY ='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';
+// sgMail.setApiKey(SENDGRID_APY_KEY);
 
 var mailTransporter = nodemailer.createTransport({
  service: 'gmail',
@@ -43,6 +43,13 @@ router.post('/', function (req, res) {
      else{
         db.query('INSERT INTO user (password, name, contact, email, token_id) VALUES(?,?,?,?,?)', [req.body.password, req.body.name,req.body.contact,email, token_id], function (error, results, fields) {
     	  if (error) throw error;
+        else{
+          res.send({
+            "code":400,
+            "results":true,
+            "msg":"verification mail sent"
+          });
+        }
     	});
       //req.get('host')
       var link="http://"+"3.16.179.159" +"/verify?id="+token_id;
@@ -57,11 +64,7 @@ router.post('/', function (req, res) {
          if(err)
            console.log(err)
          else
-         res.send({
-           "code":400,
-           "results":true,
-           "msg":"verification mail sent"
-         });
+         console.log("email sent");
       });
      }
     });
