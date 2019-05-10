@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 router.get('/', function (req, res) {
    console.log("The will id is:"+req.query.will_id);
-   db.query('SELECT * FROM children WHERE will_id=?',
+   db.query('SELECT will_id, children_name FROM children WHERE will_id=? group by will_id, children_name',
    	[req.query.will_id], function (error, results, fields) {
     if (error) throw error;
     if(results === null)
