@@ -20,9 +20,11 @@ for(key in req.body){
   console.log(req.body[key].pct_allocation);
   console.log(req.body[key].user_id);
   db.query(query, [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results123, fields) {
+    console.log("Before UPDATE");
     console.log(results123);
   });
   db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results, fields) {
+
       console.log(results);
       if (error) throw error;
       else if(results[0].sum_pct_allocation===100){
@@ -37,6 +39,7 @@ for(key in req.body){
         console.log("Entered here 2");
         db.query('UPDATE beneficiary_belongings SET user_id =?, pct_allocation = ? where will_id=? and belongings_id=?', [parseInt(req.body[key].user_id), parseInt(req.body[key].pct_allocation), req.query.willid, (req.body[key].belongings_id)], function (error, results, fields) {
           db.query(query, [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results123, fields) {
+            console.log("Inside UPDATE");
             console.log(results123);
           });
               // res.send({
@@ -49,6 +52,7 @@ for(key in req.body){
       else if((parseInt(req.body[key].pct_allocation)+ results[0].sum_pct_allocation)<=100 && results[0].sum_pct_allocation!=0){
         console.log("Entered here 3");
         db.query('INSERT INTO beneficiary_belongings (belongings_id, will_id, user_id, pct_allocation) VALUES(?, ?, ?, ?)', [parseInt(req.body[key].belongings_id), req.query.willid, parseInt(req.body[key].user_id), parseInt(req.body[key].pct_allocation)], function (error, results, fields) {
+            console.log("Inside Insert");
               // res.send({
               //   "code":200,
               //   "result":true,
