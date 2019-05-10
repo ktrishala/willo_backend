@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
 
    db.query('select annual_sub_price from subscription_model', function (error, results2, fields) {
      console.log(results);
-     if(results[0].due_date=="null"){
+     if(results[0].due_date is_null()){
          console.log("Reached first payment");
          db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
          });
