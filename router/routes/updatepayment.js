@@ -16,9 +16,20 @@ router.post('/', function (req, res) {
    db.query('select MAX(due_date)as due_date from finance where will_id=?', [req.query.willid], function (error, results, fields) {
 
    db.query('select annual_sub_price from subscription_model', function (error, results2, fields) {
-
-   if(results.length>0){
-     console.log("first block");
+     if(!results.length){
+         console.log("Reached first payment");
+         db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
+         });
+         db.query('UPDATE finance set due_date= DATE_ADD(CURRENT_DATE, INTERVAL 1 YEAR) where due_date IS NULL and will_id=?', [req.query.willid], function (error, results, fields) {
+           res.send({
+             "code":400,
+             "result":true,
+             "msg": "payment updated"
+           });
+         });
+     }
+   else{
+     console.log("second block");
      var due_date=results[0].due_date;
      db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
      });
@@ -30,19 +41,7 @@ router.post('/', function (req, res) {
        });
      });
    }
-   else{
-     
-     console.log("Reached else payment");
-     db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
-     });
-     db.query('UPDATE finance set due_date= DATE_ADD(CURRENT_DATE, INTERVAL 1 YEAR) where due_date IS NULL and will_id=?', [req.query.willid], function (error, results, fields) {
-       res.send({
-         "code":400,
-         "result":true,
-         "msg": "payment updated"
-       });
-     });
-   }
+
  });
 });
 });
