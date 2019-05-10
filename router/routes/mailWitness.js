@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
             console.log("Reached here 1", results[i].user_id);
             var name = results[i].name;
             var token_id = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            link="http://"+"3.14.225.238" +"/witnessverify?id="+token_id;
+            link="http://"+"3.16.179.159" +"/witnessverify?id="+token_id;
             db.query('UPDATE user set token_id=? where user_id=?',[token_id, results[i].user_id], function (error, results1, fields) {
             });
             var mailOptions = {

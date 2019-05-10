@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
 
       if(results[0].password == password){
         if(results[0].email_verified == 'F'){
-          var link="http://"+"3.17.221.236" +"/verify?id="+results[0].token_id;
+          var link="http://"+"3.16.179.159" +"/verify?id="+results[0].token_id;
           var mailOptions = {
             from: 'Willo <hello@mywillo.com>', // sender address
             to: email, // list of receivers

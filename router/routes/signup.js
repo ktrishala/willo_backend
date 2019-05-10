@@ -45,7 +45,7 @@ router.post('/', function (req, res) {
     	  if (error) throw error;
     	});
       //req.get('host')
-      var link="http://"+"3.17.221.236" +"/verify?id="+token_id;
+      var link="http://"+"3.16.179.159" +"/verify?id="+token_id;
       var mailOptions = {
         from: 'Willo <hello@mywillo.com>', // sender address
         to: email, // list of receivers
