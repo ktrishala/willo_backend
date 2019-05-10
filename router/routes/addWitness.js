@@ -37,6 +37,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                      var details = 'Added witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
                      });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
+                     });
                      res.send({
                        "code":400,
                        "result":true
@@ -64,6 +70,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                      var details = 'Added secondary witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
                      });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
+                     });
                      res.send({
                        "code":400,
                        "result":true
@@ -90,6 +102,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                    else{
                      var details = 'Added tertiary witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+                     });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
                      });
                      res.send({
                        "code":400,
@@ -143,6 +161,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                      var details = 'Added witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
                      });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
+                     });
                      res.send({
                        "code":400,
                        "result":true
@@ -170,6 +194,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                      var details = 'Added secondary witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
                      });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
+                     });
                      res.send({
                        "code":400,
                        "result":true
@@ -196,6 +226,12 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
                    else{
                      var details = 'Added tertiary witness ' + req.body.name ;
                      db.query('INSERT INTO log (will_id, log_details) VALUES (?,?)',[req.query.willid, details], function (error, results, fields) {
+                     });
+                     db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
+                       if(results[0].witness_count>1){
+                         db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
+                         });
+                       }
                      });
                      res.send({
                        "code":400,
@@ -226,12 +262,7 @@ db.query('SELECT * FROM user WHERE email = ?', [email], function (error, results
      });
    }
  });
- db.query('SELECT count(*) as witness_count from parties where will_id=? and party_type like "%witness"', [req.query.willid], function (error, results, fields) {
-   if(results[0].witness_count>1){
-     db.query('UPDATE will SET will_status="PENDING WITNESS VERIFICATION" where will_id=?', [req.query.willid], function (error, results, fields) {
-     });
-   }
- });
+
 });
 
 module.exports = router;
