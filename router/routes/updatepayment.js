@@ -18,6 +18,7 @@ router.post('/', function (req, res) {
    db.query('select annual_sub_price from subscription_model', function (error, results2, fields) {
 
    if(results.length>0){
+     console.log("first block");
      var due_date=results[0].due_date;
      db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
      });
@@ -30,6 +31,7 @@ router.post('/', function (req, res) {
      });
    }
    else{
+     
      console.log("Reached else payment");
      db.query('INSERT into finance(will_id,last_payment_dt, amount)VALUES(?,CURRENT_DATE,?)', [req.query.willid, results2[0].annual_sub_price], function (error, results, fields) {
      });
