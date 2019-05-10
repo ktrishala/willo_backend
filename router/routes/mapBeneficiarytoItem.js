@@ -20,6 +20,7 @@ for(key in req.body){
   console.log(req.body[key].user_id);
   db.query('SELECT SUM(pct_allocation) as sum_pct_allocation from beneficiary_belongings where will_id=? and belongings_id=?', [req.query.willid, parseInt(req.body[key].belongings_id)], function (error, results, fields) {
       if (error) throw error;
+      console.log(results);
       else if(results[0].sum_pct_allocation===100){
         console.log("Entered here 1");
         // res.send({
