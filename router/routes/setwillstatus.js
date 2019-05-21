@@ -11,8 +11,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var mailTransporter = nodemailer.createTransport({
  service: 'gmail',
  auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'tcawfdwqdwodavrh'
+   user: 'thewilloteam@gmail.com',
+   pass: 'lhbmywczpcquwdpx'
     }
 });
 
@@ -27,7 +27,7 @@ router.get('/', function (req, res) {
     var name= results1[0].name;
     const mailOptions = {
       to: email,
-      from: '<hello@willo.com>',
+      from: 'Willo <thewilloteam@gmail.com>',
       subject: 'The filing of your will is completed',
       html: 'Hello '+name+' , your will is now available.',
     };

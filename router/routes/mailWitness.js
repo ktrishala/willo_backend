@@ -15,8 +15,8 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var mailTransporter = nodemailer.createTransport({
  service: 'gmail',
  auth: {
-        user: 'willojb2@gmail.com',
-        pass: 'tcawfdwqdwodavrh'
+   user: 'thewilloteam@gmail.com',
+   pass: 'lhbmywczpcquwdpx'
     }
 });
 
@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
             db.query('UPDATE user set token_id=? where user_id=?',[token_id, results[i].user_id], function (error, results1, fields) {
             });
             var mailOptions = {
-              from: 'Willo <hello@mywillo.com>', // sender address
+              from: 'Willo <thewilloteam@gmail.com>', // sender address
               to: results[i].email, // list of receivers
               subject: "Please verify "+ name +"'s will by clicking the link below", // Subject line
               html: link   // plain text body
