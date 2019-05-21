@@ -8,8 +8,8 @@ const sgMail = require('@sendgrid/mail');
 var mailTransporter = nodemailer.createTransport({
           service: 'gmail',
            auth: {
-                  user: 'willojb2@gmail.com',
-                  pass: 'tcawfdwqdwodavrh'
+                  user: 'thewilloteam@gmail.com',
+                  pass: 'lhbmywczpcquwdpx'
               }
           });
 
@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
           console.log("error ocurred",error);
        }
        var mailOptions = {
-        from: 'Willo <hello@mywillo.com>', // sender address
+        from: 'Willo <thewilloteam@gmail.com>', // sender address
         to: emailid, // list of receivers
         subject: 'From Willo:Your online will making app', // Subject line
         html: response   // plain text body
